@@ -1,0 +1,90 @@
+package by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation;
+
+import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.AbstractApplicationDao;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Application;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.ApplicationState;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.util.SqlConfig;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MySqlApplicationDao extends AbstractApplicationDao {
+    public MySqlApplicationDao() {}
+
+    @Override
+    public String getSelectQuery() {
+        return SqlConfig.SELECT_APPLICATION_QUERY;
+    }
+
+    @Override
+    public String getSelectQueryById() {
+        return SqlConfig.SELECT_APPLICATION_BY_ID;
+    }
+
+    @Override
+    public String getInsertQuery() {
+        return SqlConfig.INSERT_APPLICATION_QUERY;
+    }
+
+    @Override
+    public String getUpdateQuery() {
+        return SqlConfig.UPDATE_APPLICATION_QUERY;
+    }
+
+    @Override
+    public String getDeleteQuery() {
+        return SqlConfig.DELETE_APPLICATION_QUERY;
+    }
+
+    @Override
+    protected List<Application> parseResultSet(ResultSet resultSet) throws PersistException {
+        List<Application> result = new ArrayList<>();
+        try {
+            while (resultSet.next()) {
+                Application application = new Application();
+                application.setId(resultSet.getLong("application_id"));
+                application.setClientId(resultSet.getLong("client_id"));
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime dateTime =
+                        LocalDateTime.from(formatter.parse(resultSet.getString("application_time")));
+                application.setDateTime(LocalDateTime.from(dateTime));
+
+                application.setState(ApplicationState.valueOf(resultSet.getString("state")));
+                result.add(application);
+            }
+        } catch (SQLException e) {
+            throw new PersistException("Result set problems.", e);
+        }
+        return result;
+    }
+
+    @Override
+    protected void prepareStatementForInsert(PreparedStatement statement, Application object) throws PersistException {
+        try {
+            statement.setObject(1, object.getClientId());
+            statement.setObject(2, object.getDateTime().toString());
+            statement.setObject(3, object.getState().toString());
+        } catch (SQLException e) {
+            throw new PersistException("Prepared state forming problem.", e);
+        }
+    }
+
+    @Override
+    protected void prepareStatementForUpdate(PreparedStatement statement, Application object) throws PersistException {
+        try {
+            statement.setObject(1, object.getClientId());
+            statement.setObject(2, object.getDateTime().toString());
+            statement.setObject(3, object.getState().toString());
+            statement.setObject(4, object.getId());
+        } catch (SQLException e) {
+            throw new PersistException("Prepared state forming problem.", e);
+        }
+    }
+}

@@ -1,0 +1,16 @@
+body {
+    font-family: Arial, serif;
+    background-color: #3498DB;
+    padding: 50px;
+}
+
+.user-info {
+    background-color: antiquewhite;
+    border: 3px solid #645a4e;
+    position: absolute;
+    width: 20%;
+    top: 7.5%;
+    left: 78%;
+    padding: 10px;
+    line-height: 2px;
+}

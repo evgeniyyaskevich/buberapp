@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+
+    <Appenders>
+        <File name="ERRORFILE" fileName="${log4j:configParentLocation}/logs/Error.log">
+            <PatternLayout pattern="%d{ABSOLUTE} [%-5p] (%F:%M:%L) - %m%n"/>
+        </File>
+
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} - [%-5p] - %m%n"/>
+        </Console>
+
+        <File name="DEBUGFILE" fileName="${log4j:configParentLocation}/logs/Debug.log">
+            <PatternLayout pattern="%d{ABSOLUTE} [%-5p] (%F:%M:%L) - %m%n"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+
+        <Root level="TRACE">
+            <Appender-ref ref="STDOUT"/>
+            <Appender-ref ref="DEBUGFILE" level="DEBUG"/>
+            <Appender-ref ref="ERRORFILE" level="ERROR"/>
+        </Root>
+
+    </Loggers>
+
+</Configuration>
