@@ -1,0 +1,63 @@
+
+.applicationContent {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 20px;
+}
+
+.modalDialog {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    display: block;
+    pointer-events: auto;
+}
+
+.modalDialog > div {
+    width: 400px;
+    position: relative;
+    margin: 10% auto;
+    padding: 5px 20px 13px 20px;
+    border-radius: 10px;
+    background: #fff;
+    background: -moz-linear-gradient(#fff, #9993);
+    background: -webkit-linear-gradient(#fff, #9993);
+    background: -o-linear-gradient(#fff, #9993);
+}
+
+.orderButton {
+    font-size: 20px;
+    position: center;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #cc5500;
+    user-select: none;
+    /*padding: 2em 25em; */
+    padding: 2% 10% 2%;
+    outline: none;
+    border-radius: 1px;
+    background: #fff;
+    background: -moz-linear-gradient(#fff, #999);
+    background: -webkit-linear-gradient(#fff, #999);
+    background: -o-linear-gradient(#fff, green);
+    transition: 0.2s;
+}
+
+.orderButton:hover {
+    background-size: 100% 100%, auto;
+}
+
+.orderButton:active {
+    top: 1px;
+    color: #ffdead;
+    box-shadow: inset #ebab00 0 -1px 1px, inset 0 1px 1px #ffbf00, #cc7722 0 0 0 1px, 0 10px 10px -9px #000;
+}

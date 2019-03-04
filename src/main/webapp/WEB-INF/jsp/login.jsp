@@ -18,7 +18,7 @@
 
         <div class="login-form">
             <form class="login-form" action="login" method="POST">
-                <input type="hidden" name="command" value="login" required/>
+                <input type="hidden" name="command" value="log_in" required/>
                 <div class="control-group">
                     <input type="text" name="login" class="login-field" value="" placeholder="username"
                            id="login-name" required>
@@ -34,13 +34,14 @@
                 <div class="error-message">
                     <c:out value="${errorMessage}"/>
                 </div>
-                <input class="btn btn-primary btn-large btn-block" type="submit" value="Sign in"/>
+                <input class="btn btn-primary btn-large btn-block" type="submit" value="Sign in" id="submitR"/>
             </form>
 
             <a class="register-link" href="<c:url value="/register"/> ">Create account?</a>
         </div>
     </div>
 </div>
+
 </body>
 
 </html>

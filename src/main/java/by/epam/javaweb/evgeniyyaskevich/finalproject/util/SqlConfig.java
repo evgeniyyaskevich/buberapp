@@ -31,15 +31,25 @@ public class SqlConfig {
 
 
     public static final String SELECT_APPLICATION_QUERY =
-            "SELECT application_id, client_id, application_time, state FROM Application";
+            "SELECT application_id, client_id, application_time, state, destination, price FROM Application";
     public static final String SELECT_APPLICATION_BY_ID =
-            "SELECT application_id, client_id, application_time, state FROM Application WHERE application_id = ?";
-
+            "SELECT application_id, client_id, application_time, state," +
+                    "destination, price FROM Application WHERE application_id = ?";
     public static final String INSERT_APPLICATION_QUERY =
-            "INSERT Application (client_id, application_time, state) VALUES (?, ?, ?);";
+            "INSERT Application (client_id, state, destination, price, child_seat, car_type) VALUES (?, ?, ?, ?, ?, ?);";
     public static final String DELETE_APPLICATION_QUERY =
             "DELETE FROM Application WHERE application_id = ?;";
     public static final String UPDATE_APPLICATION_QUERY =
             "UPDATE Application SET client_id = ?, application_time = ?, state = ? WHERE application_id = ?;";
+
+
+    public static final String SELECT_DESTINATION_QUERY =
+            "SELECT destination_id, destination_name, south_coord, north_coord FROM Destination";
+    public static final String INSERT_DESTINATION_QUERY =
+            "INSERT Destination (destination_name, south_coord, north_coord) VALUE (?, ?, ?);";
+    public static final String DELETE_DESTINATION_QUERY =
+            "DELETE FROM Destination WHERE destination_id = ?;";
+    public static final String UPDATE_DESTINATION_QUERY =
+            "UPDATE Destination SET north_coord = ?, south_coord = ? WHERE destination_name = ?;";
 
 }

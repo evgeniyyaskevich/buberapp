@@ -2,6 +2,8 @@ package by.epam.javaweb.evgeniyyaskevich.finalproject.controller;
 
 import by.epam.javaweb.evgeniyyaskevich.finalproject.command.ActionCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.command.ActionCommandFactory;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.GetCarsByApplicationCommand;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.GetDestinationsCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.ResourceManager;
 
 import javax.servlet.ServletException;
@@ -11,12 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/login", "/register", "/main"})
+@WebServlet(urlPatterns = {"/login", "/register", "/main", "/order", "/successOrder"})
 public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] page = req.getRequestURI().split("/");
         String currentPage = page[page.length - 1];
+        processRequest(req, resp, currentPage);
+
         ResourceManager messageManager = new ResourceManager("config");
         String path = messageManager.getProperty("path.page." + currentPage);
         getServletContext().getRequestDispatcher(path).forward(req, resp);
@@ -32,16 +36,42 @@ public class Controller extends HttpServlet {
             }
         }
         getServletContext().getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(req, resp);*/
-        processRequest(req, resp);
+        processPostRequest(req, resp);
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void processPostRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         ActionCommandFactory commandFactory = ActionCommandFactory.getInstance();
         String commandName = request.getParameter("command");
         ActionCommand currentCommand = commandFactory.defineCommand(request);
-        String page = currentCommand.execute(request);
-        //TODO: Post Redirect Get
-        getServletContext().getRequestDispatcher(page).forward(request, response);
+        if (currentCommand != null) {
+            String page = currentCommand.execute(request);
+            //TODO: Post Redirect Get
+            Object errorMessage = request.getAttribute("errorMessage");
+            if (errorMessage != null) {
+                getServletContext().getRequestDispatcher(page).forward(request, response);
+            } else {
+                response.sendRedirect(getLocationFromPath(page));
+            }
+        }
     }
 
+    private String getLocationFromPath(String path) {
+        String[] s = path.split("/");
+        String fileName = s[s.length - 1];
+        s = fileName.split("\\.");
+        return s[s.length - 2];
+    }
+
+    private void processRequest(HttpServletRequest request,
+                                HttpServletResponse response, String currentPage) {
+        switch (currentPage) {
+            case "main":
+                new GetDestinationsCommand().execute(request);
+                break;
+            case "order":
+                new GetCarsByApplicationCommand().execute(request);
+                break;
+        }
+    }
 }

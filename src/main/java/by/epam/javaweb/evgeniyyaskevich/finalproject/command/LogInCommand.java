@@ -1,11 +1,9 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.command;
 
-import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.User;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.service.UserService;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.ResourceManager;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public class LogInCommand implements ActionCommand {
     private static final String PARAM_NAME_LOGIN = "login";
@@ -25,10 +23,7 @@ public class LogInCommand implements ActionCommand {
 
         if (userService.isUserExist(login)) {
             if (userService.checkPassword(login, password)) {
-                User user = userService.getUser(login);
-                HttpSession session = request.getSession();
-                session.setAttribute("isAuthorized", true);
-                session.setAttribute("user", user);
+                userService.fillSession(request.getSession(), login);
                 page = configManager.getProperty("path.page.main");
             } else {
                 request.setAttribute("errorMessage", messageManager.getProperty("message.password_error"));

@@ -1,0 +1,21 @@
+
+.log-out-button {
+    font-size: 20px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #cc5500;
+    user-select: none;
+    /*padding: 2em 25em; */
+    padding: 0% 1% 0%;
+    outline: none;
+    border-radius: 1px;
+    background-size: 100% 100%, auto;
+    background: linear-gradient(to left, rgba(0, 0, 0, .3), rgba(0, 0, 0, .0) 50%, rgba(0, 0, 0, .3)),
+    linear-gradient(#d77d31, #fe8417, #d77d31) 50% 50%;
+    box-shadow: inset #ebab00 0 -1px 1px, inset 0 1px 1px #ffbf00, #cc7722 0 0 0 1px, #000 0 10px 15px -10px;
+    transition: 0.2s;
+}

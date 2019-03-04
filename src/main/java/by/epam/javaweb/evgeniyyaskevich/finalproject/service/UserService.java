@@ -1,6 +1,7 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.service;
 
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation.MySqlDestinationDao;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation.MySqlUserDao;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.User;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.PasswordManager;
@@ -8,12 +9,14 @@ import by.epam.javaweb.evgeniyyaskevich.finalproject.util.ResourceManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 public class UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
     private MySqlUserDao userDao = new MySqlUserDao();
+    private MySqlDestinationDao destinationDao = new MySqlDestinationDao();
     private ResourceManager messageManager = new ResourceManager("messages");
     private ResourceManager configManager = new ResourceManager("config");
 
@@ -68,5 +71,21 @@ public class UserService {
             LOGGER.error(e);
         }
         return user;
+    }
+
+    public void fillSession(HttpSession session, String login) {
+        User user = getUser(login);
+        user.setPassword("");
+        session.setAttribute("isAuthorized", true);
+        session.setAttribute("user", user);
+
+
+        /*List<Destination> destinations = null;
+        try {
+            destinations = destinationDao.getAll();
+        } catch (PersistException e) {
+            LOGGER.error(e);
+        }
+        session.setAttribute("destinations", destinations);*/
     }
 }

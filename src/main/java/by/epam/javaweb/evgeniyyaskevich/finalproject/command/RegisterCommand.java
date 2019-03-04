@@ -23,7 +23,7 @@ public class RegisterCommand implements ActionCommand {
             page = configManager.getProperty("path.page.register");
         } else if (Arrays.equals(password, confirmPassword)) {
             userService.register(login, password);
-            //forward to main page;
+            userService.fillSession(request.getSession(), login);
             page = configManager.getProperty("path.page.main");
         } else {
             request.setAttribute("errorMessage",

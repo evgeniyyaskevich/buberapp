@@ -1,7 +1,7 @@
 body {
     font-family: Arial, serif;
     background-color: #FFFFCC;
-    padding: 50px;
+    padding: 0px;
     align-content: center;
 }
 
@@ -11,27 +11,23 @@ body {
     display: block;
 }
 
-.user-info {
-    background-color: antiquewhite;
-    border: 3px solid #645a4e;
-    position: absolute;
-    width: 20%;
-    top: 45%;
-    left: 78%;
-    padding: 10px;
-    line-height: 2px;
-}
 
 .welcome {
     text-align: center;
     color: black;
     font-size: 60px;
     text-shadow: 0 0 5px red, 0 0 10px orange, 0 0 15px yellow, 0 0 20px green, 0 0 25px aqua,
-    0 0 30px blue, 0 0 35px purple;
+    0 0 15px blue, 0 0 20px purple;
+    padding: 1% auto;
+    margin: 1% auto;
 }
 
 .button-content {
     text-align: center;
+}
+
+.order-div {
+    text-align:center;
 }
 
 .orderButton {
@@ -43,7 +39,7 @@ body {
     text-shadow: 0 -1px 1px #cc5500;
     user-select: none;
     /*padding: 2em 25em; */
-    padding: 2% 40% 2%;
+    padding: 2% 10% 2%;
     outline: none;
     border-radius: 1px;
     background-size: 100% 100%, auto;
@@ -52,6 +48,7 @@ body {
     box-shadow: inset #ebab00 0 -1px 1px, inset 0 1px 1px #ffbf00, #cc7722 0 0 0 1px, #000 0 10px 15px -10px;
     transition: 0.2s;
 }
+
 .orderButton:hover {
     background-size: 100% 100%, auto;
 }
@@ -61,32 +58,22 @@ body {
     color: #ffdead;
     box-shadow: inset #ebab00 0 -1px 1px, inset 0 1px 1px #ffbf00, #cc7722 0 0 0 1px, 0 10px 10px -9px #000;
 }
-.modalDialog {
-    position: fixed;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 99999;
-    -webkit-transition: opacity 400ms ease-in;
-    -moz-transition: opacity 400ms ease-in;
-    transition: opacity 400ms ease-in;
-    display: none;
-    pointer-events: none;
+
+
+.text-form {
+    align-content: center;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 0 -1px 1px #cc5500;
+    font-size: 30px;
 }
 
-.modalDialog:target {
-    display: block;
-    pointer-events: auto;
-}
 
-.modalDialog > div {
-    width: 400px;
+.table-form {
+    width: 500px;
     position: relative;
-    margin: 10% auto;
-    padding: 5px 20px 13px 20px;
+    margin: 2% auto;
+    padding: 10px 15px 10px 15px;
     border-radius: 10px;
     background: #fff;
     background: -moz-linear-gradient(#fff, #999);
@@ -94,39 +81,15 @@ body {
     background: -o-linear-gradient(#fff, #999);
 }
 
-.close {
-    background: #606061;
-    color: #FFFFFF;
-    line-height: 25px;
-    position: absolute;
-    right: -12px;
-    text-align: center;
-    top: -10px;
-    width: 24px;
-    text-decoration: none;
-    font-weight: bold;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-radius: 12px;
-    -moz-box-shadow: 1px 1px 3px #000;
-    -webkit-box-shadow: 1px 1px 3px #000;
-    box-shadow: 1px 1px 3px #000;
-}
-
-.close:hover { background: #00d9ff; }
-
-.applicationContent {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-
-.text-form {
-    font-weight: bold;
-    text-decoration: underline;
-    text-shadow: 0 -1px 1px #cc5500;
-}
-
 .text-form-header {
     font-weight: bold;
     text-shadow: 0 -1px 1px #cc5500;
+}
+
+b {
+    font-style: italic;
+    font-size: 30px;
+    font-family: "Whitney SSm A", Arial, serif;
+    text-overline-color: grey;
+    font-weight: bolder;
 }

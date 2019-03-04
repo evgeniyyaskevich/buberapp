@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "authorizationFilter", urlPatterns = {"/main", "/login", "/register"})
+@WebFilter(filterName = "authorizationFilter", urlPatterns = {"/main", "/login", "/register", "/"})
 public class AuthorizationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
@@ -28,7 +28,7 @@ public class AuthorizationFilter implements Filter {
                     chain.doFilter(servletRequest, servletResponse);
                 }
             } else {
-                if (!urlPattern.equals("login"))  {
+                if (urlPattern.equals("login") || urlPattern.equals("register"))  {
                     chain.doFilter(servletRequest, servletResponse);
                 } else {
                     httpResponse.sendRedirect("login");
@@ -36,7 +36,7 @@ public class AuthorizationFilter implements Filter {
             }
         } else {
             session.setAttribute("isAuthorized", false);
-            if (urlPattern.equals("login")) {
+            if (urlPattern.equals("login") || urlPattern.equals("register")) {
                 chain.doFilter(servletRequest, servletResponse);
             } else {
                 httpResponse.sendRedirect("login");

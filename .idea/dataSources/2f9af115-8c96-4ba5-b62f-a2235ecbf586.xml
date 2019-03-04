@@ -1107,110 +1107,136 @@
     <table id="277" parent="2" name="application"/>
     <table id="278" parent="2" name="black_list"/>
     <table id="279" parent="2" name="car"/>
-    <table id="280" parent="2" name="user"/>
-    <column id="281" parent="277" name="application_id">
+    <table id="280" parent="2" name="destination"/>
+    <table id="281" parent="2" name="user"/>
+    <column id="282" parent="277" name="application_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="277" name="client_id">
+    <column id="283" parent="277" name="client_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="277" name="application_time">
+    <column id="284" parent="277" name="destination">
       <Position>3</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="285" parent="277" name="price">
+      <Position>4</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="286" parent="277" name="application_time">
+      <Position>5</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="277" name="state">
-      <Position>4</Position>
+    <column id="287" parent="277" name="state">
+      <Position>6</Position>
       <DataType>enum(&apos;WAITING&apos;, &apos;ACCEPTED&apos;)|0e</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="285" parent="277" name="client_id">
+    <column id="288" parent="277" name="car_type">
+      <Position>7</Position>
+      <DataType>varchar(15)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="289" parent="277" name="child_seat">
+      <Position>8</Position>
+      <DataType>tinyint(1)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>0</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="290" parent="277" name="client_id">
       <ColNames>client_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="286" parent="277" name="PRIMARY">
+    <key id="291" parent="277" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>application_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="287" parent="277" name="application_ibfk_1">
+    <foreign-key id="292" parent="277" name="application_ibfk_1">
       <ColNames>client_id</ColNames>
       <RefSchemaName>buber</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>
     </foreign-key>
-    <column id="288" parent="278" name="user_id">
+    <column id="293" parent="278" name="user_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="289" parent="278" name="reason">
+    <column id="294" parent="278" name="reason">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="290" parent="278" name="PRIMARY">
+    <key id="295" parent="278" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="291" parent="278" name="black_list_ibfk_1">
+    <foreign-key id="296" parent="278" name="black_list_ibfk_1">
       <ColNames>user_id</ColNames>
       <RefSchemaName>buber</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="292" parent="279" name="car_id">
+    <column id="297" parent="279" name="car_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="279" name="driver_id">
+    <column id="298" parent="279" name="driver_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="294" parent="279" name="car_brand">
+    <column id="299" parent="279" name="car_brand">
       <Position>3</Position>
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="295" parent="279" name="car_type">
+    <column id="300" parent="279" name="car_type">
       <Position>4</Position>
       <DataType>enum(&apos;UNIVERSAL&apos;, &apos;MINIVAN&apos;, &apos;ELITE&apos;)|0e</DataType>
       <DefaultExpression>&apos;UNIVERSAL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="296" parent="279" name="child_seat">
+    <column id="301" parent="279" name="child_seat">
       <Position>5</Position>
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="297" parent="279" name="driver_id">
+    <index id="302" parent="279" name="driver_id">
       <ColNames>driver_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="298" parent="279" name="PRIMARY">
+    <key id="303" parent="279" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>car_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="299" parent="279" name="car_ibfk_1">
+    <foreign-key id="304" parent="279" name="car_ibfk_1">
       <ColNames>driver_id</ColNames>
       <RefSchemaName>buber</RefSchemaName>
       <RefTableName>user</RefTableName>
@@ -1218,48 +1244,78 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>set-null</OnDelete>
     </foreign-key>
-    <column id="300" parent="280" name="user_name">
+    <column id="305" parent="280" name="destination_id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="306" parent="280" name="destination_name">
+      <Position>2</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="307" parent="280" name="south_coord">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="308" parent="280" name="north_coord">
+      <Position>4</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="309" parent="280" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>destination_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="310" parent="281" name="user_name">
       <Position>1</Position>
       <DataType>varchar(15)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="301" parent="280" name="password">
+    <column id="311" parent="281" name="password">
       <Position>2</Position>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="280" name="user_id">
+    <column id="312" parent="281" name="user_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="303" parent="280" name="bonus">
+    <column id="313" parent="281" name="bonus">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="304" parent="280" name="level_access">
+    <column id="314" parent="281" name="level_access">
       <Position>5</Position>
       <DataType>enum(&apos;CLIENT&apos;, &apos;DRIVER&apos;, &apos;ADMIN&apos;)|0e</DataType>
       <DefaultExpression>&apos;CLIENT&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="305" parent="280" name="user_name">
+    <index id="315" parent="281" name="user_name">
       <ColNames>user_name</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="306" parent="280" name="PRIMARY">
+    <key id="316" parent="281" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="307" parent="280" name="user_name">
+    <key id="317" parent="281" name="user_name">
       <ColNames>user_name</ColNames>
       <UnderlyingIndexName>user_name</UnderlyingIndexName>
     </key>

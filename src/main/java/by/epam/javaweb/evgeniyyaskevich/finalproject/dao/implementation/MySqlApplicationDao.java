@@ -50,6 +50,8 @@ public class MySqlApplicationDao extends AbstractApplicationDao {
                 Application application = new Application();
                 application.setId(resultSet.getLong("application_id"));
                 application.setClientId(resultSet.getLong("client_id"));
+                application.setDestination(resultSet.getString("destination"));
+                application.setPrice(resultSet.getInt("price"));
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime dateTime =
@@ -69,13 +71,18 @@ public class MySqlApplicationDao extends AbstractApplicationDao {
     protected void prepareStatementForInsert(PreparedStatement statement, Application object) throws PersistException {
         try {
             statement.setObject(1, object.getClientId());
-            statement.setObject(2, object.getDateTime().toString());
-            statement.setObject(3, object.getState().toString());
+            statement.setObject(2, object.getState().toString());
+            statement.setObject(3, object.getDestination());
+            statement.setObject(4, object.getPrice());
+            statement.setObject(5, object.getChildSeat());
+            statement.setObject(6, object.getCarType().toString());
         } catch (SQLException e) {
             throw new PersistException("Prepared state forming problem.", e);
         }
     }
 
+
+    //TODO: check this preparing
     @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, Application object) throws PersistException {
         try {

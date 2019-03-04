@@ -1,15 +1,15 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.command;
 
-import by.epam.javaweb.evgeniyyaskevich.finalproject.util.ResourceManager;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Application;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class LogOutCommand implements ActionCommand {
+public class ConfirmOrderCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.invalidate();
-        return new ResourceManager("config").getProperty("path.page.login");
+        Application application = (Application)session.getAttribute("application");
+        return null;
     }
 }
