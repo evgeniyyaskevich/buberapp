@@ -8,5 +8,5 @@ import java.util.List;
 public abstract class AbstractCarDao extends AbstractJDBCDao<Car> {
     protected AbstractCarDao() {}
 
-    public abstract List<Car> getByDriverId(long id) throws PersistException;
+    public abstract List<Car> getByDriverId(Long id) throws PersistException;
 }

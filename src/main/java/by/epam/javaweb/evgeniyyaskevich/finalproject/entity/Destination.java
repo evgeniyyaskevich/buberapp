@@ -7,6 +7,10 @@ public class Destination extends BaseEntity {
     private Integer southCoord;
     private Integer northCoord;
 
+    public Destination() {
+        super();
+    }
+
     public String getName() {
         return name;
     }

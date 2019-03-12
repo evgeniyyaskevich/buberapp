@@ -46,7 +46,7 @@ public class MySqlDestinationDao extends AbstractDestinationDao {
         try {
             while (resultSet.next()) {
                 Destination destination = new Destination();
-                destination.setId(resultSet.getInt("destination_id"));
+                destination.setId(resultSet.getLong("destination_id"));
                 destination.setName(resultSet.getString("destination_name"));
                 destination.setNorthCoord(resultSet.getInt("north_coord"));
                 destination.setSouthCoord(resultSet.getInt("south_coord"));

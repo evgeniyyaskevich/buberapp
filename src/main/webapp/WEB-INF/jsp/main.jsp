@@ -84,49 +84,51 @@
 
 <br> <br> <br>
 <c:if test="${user.level eq 'CLIENT'}">
-    dawdnjfnjdsg
+    <%--dawdnjfnjdsg
     ${fn:length(applications)}
-    ${fn:length(applications)}
-    <c:choose>
+    ${fn:length(applications)}--%>
+    <%--<c:choose>
         <c:when test="${fn:length(applications)}">
             <div class="text-form-header">
                 Your list is empty. Make order.
             </div>
         </c:when>
         <c:otherwise>
-            <div class="text-form-header">
-                <table align="center" border="2" cellspacing="2" cellpadding="2">
-                    <thead align="center">
-                    <tr>
-                        <td>#</td>
-                        <td>destination</td>
-                        <td>application time</td>
-                        <td>car type</td>
-                        <td>child seat</td>
-                        <td>price</td>
-                        <td>state</td>
-                    </tr>
-                    </thead>
 
-                    <tbody align="center">
-                    <c:forEach items="${applications}" var="application">
-                        <tr>
-                            <td><c:out value="${application.id}"/></td>
-                            <td><c:out value="${application.destination}"/></td>
-                            <td><c:out value="${application.dateTime}"/></td>
-                            <td><c:out value="${application.carType}"/></td>
-                            <td><c:out value="${application.childSeat}"/></td>
-                            <td><c:out value="${application.price}"/></td>
-                            <td><c:out value="${application.state}"/></td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
         </c:otherwise>
-    </c:choose>
-
+    </c:choose>--%>
 </c:if>
+
+
+<div class="text-form-header">
+    <table align="center" border="2" cellspacing="2" cellpadding="2">
+        <thead align="center">
+        <tr>
+            <td>#</td>
+            <td>destination</td>
+            <td>application time</td>
+            <td>car type</td>
+            <td>child seat</td>
+            <td>price</td>
+            <td>state</td>
+        </tr>
+        </thead>
+
+        <tbody align="center">
+        <c:forEach items="${applications}" var="application">
+            <tr>
+                <td><c:out value="${application.id}"/></td>
+                <td><c:out value="${application.destination}"/></td>
+                <td><c:out value="${application.dateTime}"/></td>
+                <td><c:out value="${application.carType}"/></td>
+                <td><c:out value="${application.childSeat}"/></td>
+                <td><c:out value="${application.price}"/></td>
+                <td><c:out value="${application.state}"/></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 
 
 </body>

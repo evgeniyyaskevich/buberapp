@@ -42,7 +42,7 @@ public class MySqlCarDao extends AbstractCarDao {
     }
 
     @Override
-    public List<Car> getByDriverId(long id) throws PersistException {
+    public List<Car> getByDriverId(Long id) throws PersistException {
         try (ProxyConnection connection = connectionPool.getConnection()) {
             String sql = getSelectQuery() + " WHERE driver_id = " + id;
             try (PreparedStatement statement = connection.prepareStatement(sql)) {

@@ -38,21 +38,21 @@ public class MySqlCarDaoTest {
 
     @Test
     public void testDelete() throws PersistException {
-        Car car = dao.getById(1);
+        Car car = dao.getById(1L);
         dao.delete(car);
     }
 
     @Test
     public void testInsert() throws PersistException {
-        Car car = dao.getById(2);
-        car.setId(500);
+        Car car = dao.getById(2L);
+        car.setId(500L);
         car.setDriverId(1);
         dao.insert(car);
     }
 
     @Test
     public void testUpdate() throws PersistException {
-        Car car = dao.getById(12);
+        Car car = dao.getById(12L);
         car.setBrand("MEGAAA");
         car.setChildSeat(true);
         car.setDriverId(3);

@@ -6,6 +6,7 @@ import by.epam.javaweb.evgeniyyaskevich.finalproject.database.connection.ProxyCo
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Application;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.ApplicationState;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Car;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.CarType;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.SqlConfig;
 
 import java.sql.PreparedStatement;
@@ -61,7 +62,7 @@ public class MySqlApplicationDao extends AbstractApplicationDao {
     public List<Application> getByCar(Car car) throws PersistException {
         try (ProxyConnection connection = connectionPool.getConnection()) {
             String sql = getSelectQuery() + " WHERE state = \"WAITING\" AND car_type = \"" + car.getType().toString() +
-                    "\" AND child_seat = \"" + car.getChildSeat() + "\";";
+                    "\" AND child_seat = " + car.getChildSeat() + ";";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();
                 return parseResultSet(resultSet);
@@ -81,7 +82,9 @@ public class MySqlApplicationDao extends AbstractApplicationDao {
                 application.setClientId(resultSet.getLong("client_id"));
                 application.setDestination(resultSet.getString("destination"));
                 application.setPrice(resultSet.getInt("price"));
+                Boolean flag = resultSet.getBoolean("child_seat");
                 application.setChildSeat(resultSet.getBoolean("child_seat"));
+                application.setCarType(CarType.valueOf(resultSet.getString("car_type")));
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime dateTime =

@@ -40,7 +40,7 @@ public abstract class AbstractJDBCDao<T extends BaseEntity> implements GenericDa
     }
 
     @Override
-    public T getById(long id) throws PersistException {
+    public T getById(Long id) throws PersistException {
         try (ProxyConnection connection = connectionPool.getConnection()) {
             String sql = getSelectQueryById();
             List<T> list;

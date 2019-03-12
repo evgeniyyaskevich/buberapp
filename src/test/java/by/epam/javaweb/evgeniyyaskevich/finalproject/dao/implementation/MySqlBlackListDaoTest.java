@@ -38,7 +38,7 @@ public class MySqlBlackListDaoTest {
 
     @Test
     public void testDelete() throws PersistException {
-        BlackListRecord record = dao.getById(1);
+        BlackListRecord record = dao.getById(1L);
         record.setUserId(1);
         dao.delete(record);
     }
@@ -53,7 +53,7 @@ public class MySqlBlackListDaoTest {
 
     @Test
     public void testUpdate() throws PersistException {
-       BlackListRecord record = dao.getById(1);
+       BlackListRecord record = dao.getById(1L);
        record.setReason("DREAMER X2");
        dao.update(record);
     }

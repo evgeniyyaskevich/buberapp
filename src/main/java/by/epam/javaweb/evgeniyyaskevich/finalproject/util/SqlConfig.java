@@ -31,7 +31,7 @@ public class SqlConfig {
 
 
     public static final String SELECT_APPLICATION_QUERY =
-            "SELECT application_id, client_id, application_time, state, destination, price, child_seat" +
+            "SELECT application_id, client_id, application_time, state, destination, price, child_seat, car_type" +
                     " FROM Application";
     public static final String SELECT_APPLICATION_BY_ID =
             "SELECT application_id, client_id, application_time, state," +

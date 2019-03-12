@@ -6,6 +6,10 @@ import java.util.Objects;
 public class BlackListRecord extends BaseEntity {
     private String reason;
 
+    public BlackListRecord() {
+        super();
+    }
+
     public long getUserId() {
         return super.getId();
     }

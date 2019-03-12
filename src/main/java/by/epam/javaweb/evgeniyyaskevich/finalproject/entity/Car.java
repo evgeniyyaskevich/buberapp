@@ -9,6 +9,10 @@ public class Car extends BaseEntity {
     private CarType type;
     private Boolean childSeat;
 
+    public Car() {
+        super();
+    }
+
     public long getDriverId() {
         return driverId;
     }

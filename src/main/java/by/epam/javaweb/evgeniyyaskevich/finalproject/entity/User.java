@@ -8,7 +8,9 @@ public class User extends BaseEntity {
     private AccessLevel level = AccessLevel.CLIENT;
     private Integer bonus = 0;
 
-    public User() {}
+    public User() {
+        super();
+    }
 
     public Integer getBonus() {
         return bonus;

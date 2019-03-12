@@ -38,21 +38,21 @@ public class MySqlApplicationDaoTest {
 
     @Test
     public void testDelete() throws PersistException {
-        Application application = dao.getById(1);
+        Application application = dao.getById(1L);
         dao.delete(application);
     }
 
     @Test
     public void testInsert() throws PersistException {
-        Application application = dao.getById(1);
-        application.setId(500);
+        Application application = dao.getById(1L);
+        application.setId(500L);
         application.setState(ApplicationState.ACCEPTED);
         dao.insert(application);
     }
 
     @Test
     public void testUpdate() throws PersistException {
-        Application application = dao.getById(1);
+        Application application = dao.getById(1L);
         application.setState(ApplicationState.WAITING);
         dao.update(application);
     }

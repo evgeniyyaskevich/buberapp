@@ -68,7 +68,7 @@ public class MySqlUserDao extends AbstractUserDao {
         try {
             while (resultSet.next()) {
                 User user = new User();
-                user.setId(resultSet.getInt("user_id"));
+                user.setId(resultSet.getLong("user_id"));
                 user.setName(resultSet.getString("user_name"));
                 user.setBonus(resultSet.getInt("bonus"));
                 user.setPassword(resultSet.getString("password"));

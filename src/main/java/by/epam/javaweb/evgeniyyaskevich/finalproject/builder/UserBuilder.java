@@ -8,7 +8,7 @@ public class UserBuilder {
     private String password;
     private AccessLevel level = AccessLevel.CLIENT;
     private Integer bonus = 0;
-    private Long id;
+    private long id;
 
     public UserBuilder setName(String name) {
         this.name = name;

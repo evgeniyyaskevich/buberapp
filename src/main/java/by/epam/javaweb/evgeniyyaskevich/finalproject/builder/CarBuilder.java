@@ -4,8 +4,8 @@ import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Car;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.CarType;
 
 public class CarBuilder {
-    private Long id;
-    private Long driverId;
+    private long id;
+    private long driverId;
     private String brand;
     private String year;
     private CarType type;

@@ -4,13 +4,17 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Application extends BaseEntity {
-    private long clientId;
+    private Long clientId;
     private LocalDateTime dateTime;
     private String destination;
     private Integer price;
     private Boolean childSeat = false;
     private ApplicationState state = ApplicationState.WAITING;
     private CarType carType = CarType.UNIVERSAL;
+
+    public Application() {
+        super();
+    }
 
     public CarType getCarType() {
         return carType;

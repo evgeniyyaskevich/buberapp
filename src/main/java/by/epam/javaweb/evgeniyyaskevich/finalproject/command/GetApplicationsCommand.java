@@ -13,8 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GetApplicationsCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(GetApplicationsCommand.class);
@@ -32,9 +31,12 @@ public class GetApplicationsCommand implements ActionCommand {
                 applications = applicationDao.getByClientId(user.getId());
             } else if (user.getLevel() == AccessLevel.DRIVER) {
                 List<Car> cars = carDao.getByDriverId(user.getId());
+                Set<Application> applicationSet = new HashSet<>();
                 for (Car car : cars) {
-                    applications.addAll(applicationDao.getByCar(car));
+                    applicationSet.addAll(applicationDao.getByCar(car));
                 }
+                applications = new ArrayList<>(applicationSet);
+                applications.sort(Comparator.comparing(Application::getDateTime).reversed());
             }
             request.setAttribute("applications", applications);
         } catch (PersistException e) {
