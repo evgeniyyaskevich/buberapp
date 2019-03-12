@@ -20,14 +20,12 @@ public class ActionCommandFactory {
 
     public ActionCommand defineCommand(HttpServletRequest request) {
         ActionCommand currentCommand = new EmptyCommand();
-        String actionName = request.getParameter("command");
-
         try {
+            String actionName = request.getParameter("command");
             CommandEnum currentEnum = CommandEnum.valueOf(actionName.toUpperCase());
             currentCommand = currentEnum.getCommand();
         } catch (IllegalArgumentException e) {
-            //LOGGER.error()
-            //TODO: processing
+            LOGGER.error(e);
         }
         return currentCommand;
     }

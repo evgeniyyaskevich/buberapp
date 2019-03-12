@@ -2,8 +2,10 @@ package by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation;
 
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.AbstractApplicationDao;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.database.connection.ProxyConnection;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Application;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.ApplicationState;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Car;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.SqlConfig;
 
 import java.sql.PreparedStatement;
@@ -43,6 +45,33 @@ public class MySqlApplicationDao extends AbstractApplicationDao {
     }
 
     @Override
+    public List<Application> getByClientId(long id) throws PersistException {
+        try (ProxyConnection connection = connectionPool.getConnection()) {
+            String sql = getSelectQuery() + " WHERE client_id = " + id + " ORDER BY application_time DESC;";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                ResultSet resultSet = statement.executeQuery();
+                return parseResultSet(resultSet);
+            } catch (SQLException e) {
+                throw new PersistException(e);
+            }
+        }
+    }
+
+    @Override
+    public List<Application> getByCar(Car car) throws PersistException {
+        try (ProxyConnection connection = connectionPool.getConnection()) {
+            String sql = getSelectQuery() + " WHERE state = \"WAITING\" AND car_type = \"" + car.getType().toString() +
+                    "\" AND child_seat = \"" + car.getChildSeat() + "\";";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                ResultSet resultSet = statement.executeQuery();
+                return parseResultSet(resultSet);
+            } catch (SQLException e) {
+                throw new PersistException(e);
+            }
+        }
+    }
+
+    @Override
     protected List<Application> parseResultSet(ResultSet resultSet) throws PersistException {
         List<Application> result = new ArrayList<>();
         try {
@@ -52,6 +81,7 @@ public class MySqlApplicationDao extends AbstractApplicationDao {
                 application.setClientId(resultSet.getLong("client_id"));
                 application.setDestination(resultSet.getString("destination"));
                 application.setPrice(resultSet.getInt("price"));
+                application.setChildSeat(resultSet.getBoolean("child_seat"));
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime dateTime =

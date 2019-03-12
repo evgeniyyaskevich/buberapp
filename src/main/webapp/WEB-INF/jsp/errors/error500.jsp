@@ -38,11 +38,12 @@
             letter-spacing: -0.04em;
             margin: 0;
             position: absolute;
-            width:100%;
+            width: 100%;
             bottom: 170px;
         }
 
     </style>
+    <title>500</title>
 </head>
 
 <body>

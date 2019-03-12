@@ -9,12 +9,14 @@ import java.util.Arrays;
 public class RegisterCommand implements ActionCommand {
     private UserService userService = new UserService();
     //TODO: DAO should be singleton
+
     @Override
     public String execute(HttpServletRequest request) {
         String page;
         String login = request.getParameter("login");
         char[] password = request.getParameter("password").toCharArray();
         char[] confirmPassword = request.getParameter("confirmPassword").toCharArray();
+
         ResourceManager configManager = new ResourceManager("config");
         ResourceManager messageManager = new ResourceManager("messages");
 
@@ -30,7 +32,6 @@ public class RegisterCommand implements ActionCommand {
                     messageManager.getProperty("message.confirm_password_error"));
             page = configManager.getProperty("path.page.register");
         }
-
         return page;
     }
 }

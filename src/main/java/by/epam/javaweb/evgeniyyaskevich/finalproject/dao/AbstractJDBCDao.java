@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public abstract class AbstractJDBCDao<T extends BaseEntity> implements GenericDao<T> {
-    private DBConnectionPool connectionPool = DBConnectionPool.getInstance();
+    protected DBConnectionPool connectionPool = DBConnectionPool.getInstance();
 
     AbstractJDBCDao() { }
 

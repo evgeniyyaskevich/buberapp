@@ -1,5 +1,6 @@
-package by.epam.javaweb.evgeniyyaskevich.finalproject.command;
+package by.epam.javaweb.evgeniyyaskevich.finalproject.command.client;
 
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.ActionCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation.MySqlApplicationDao;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Application;

@@ -58,16 +58,4 @@ public class MySqlCarDaoTest {
         car.setDriverId(3);
         dao.update(car);
     }
-
-    @Test
-    public void testParseResultSet() {
-    }
-
-    @Test
-    public void testPrepareStatementForInsert() {
-    }
-
-    @Test
-    public void testPrepareStatementForUpdate() {
-    }
 }

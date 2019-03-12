@@ -57,15 +57,4 @@ public class MySqlBlackListDaoTest {
        record.setReason("DREAMER X2");
        dao.update(record);
     }
-    @Test
-    public void testParseResultSet() {
-    }
-
-    @Test
-    public void testPrepareStatementForInsert() {
-    }
-
-    @Test
-    public void testPrepareStatementForUpdate() {
-    }
 }

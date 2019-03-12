@@ -74,9 +74,10 @@ public class PasswordManager {
         return bytes;
     }
 
+    //TODO: delete main (:
     public static void main(String[] args) throws InvalidKeySpecException, NoSuchAlgorithmException {
         PasswordManager passwordManager = new PasswordManager();
-        String hash = passwordManager.generatePasswordHash("123".toCharArray());
+        String hash = passwordManager.generatePasswordHash("admin".toCharArray());
         System.out.println(hash);
         System.out.println(hash.length());
         System.out.println(passwordManager.validatePassword("password1".toCharArray(), hash));

@@ -38,7 +38,6 @@
                 </div>
 
 
-
                 <div class="error-message">
                     <c:out value="${errorMessage}"/>
                 </div>

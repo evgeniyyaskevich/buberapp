@@ -13,7 +13,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class DBConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger();
-    private final String DB_PROPERTIES_FILE_NAME = "database.properties";
+    private static final String DB_PROPERTIES_FILE_NAME = "database.properties";
     private BlockingQueue<ProxyConnection> freeConnections;
     private BlockingQueue<ProxyConnection> takenConnections;
 

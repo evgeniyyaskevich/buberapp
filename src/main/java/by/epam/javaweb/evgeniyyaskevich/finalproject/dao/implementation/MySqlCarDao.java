@@ -2,6 +2,7 @@ package by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation;
 
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.AbstractCarDao;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.database.connection.ProxyConnection;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Car;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.CarType;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.SqlConfig;
@@ -38,6 +39,19 @@ public class MySqlCarDao extends AbstractCarDao {
     @Override
     public String getDeleteQuery() {
         return SqlConfig.DELETE_CAR_QUERY;
+    }
+
+    @Override
+    public List<Car> getByDriverId(long id) throws PersistException {
+        try (ProxyConnection connection = connectionPool.getConnection()) {
+            String sql = getSelectQuery() + " WHERE driver_id = " + id;
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                ResultSet resultSet = statement.executeQuery();
+                return parseResultSet(resultSet);
+            } catch (SQLException e) {
+                throw new PersistException(e);
+            }
+        }
     }
 
     @Override

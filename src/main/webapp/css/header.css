@@ -1,4 +1,3 @@
-
 .log-out-button {
     font-size: 20px;
     position: absolute;
@@ -9,8 +8,7 @@
     text-decoration: none;
     text-shadow: 0 -1px 1px #cc5500;
     user-select: none;
-    /*padding: 2em 25em; */
-    padding: 0% 1% 0%;
+    padding: 0 1% 0;
     outline: none;
     border-radius: 1px;
     background-size: 100% 100%, auto;

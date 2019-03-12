@@ -1,7 +1,9 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.entity;
 
+import java.util.Objects;
+
 public class Car extends BaseEntity {
-    private long driverId;
+    private Long driverId;
     private String brand;
     private String year;
     private CarType type;
@@ -45,5 +47,37 @@ public class Car extends BaseEntity {
 
     public void setChildSeat(Boolean childSeat) {
         this.childSeat = childSeat;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Car car = (Car) o;
+        return driverId.equals(car.driverId) &&
+                brand.equals(car.brand) &&
+                year.equals(car.year) &&
+                type == car.type &&
+                childSeat.equals(car.childSeat);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(driverId, brand, year, type, childSeat);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "driverId=" + driverId +
+                ", brand='" + brand + '\'' +
+                ", year='" + year + '\'' +
+                ", type=" + type +
+                ", childSeat=" + childSeat +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
-package by.epam.javaweb.evgeniyyaskevich.finalproject.command;
+package by.epam.javaweb.evgeniyyaskevich.finalproject.command.client;
 
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.ActionCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation.MySqlDestinationDao;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Destination;
@@ -16,14 +17,12 @@ public class GetDestinationsCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        List<Destination> destinationList = null;
         try {
-            destinationList = destinationDao.getAll();
+            List<Destination> destinationList = destinationDao.getAll();
+            request.setAttribute("destinations", destinationList);
         } catch (PersistException e) {
             LOGGER.error(e);
         }
-        request.setAttribute("destinations", destinationList);
-        ResourceManager configManager = new ResourceManager("config");
-        return configManager.getProperty("path.page.main");
+        return new ResourceManager("config").getProperty("path.page.main");
     }
 }

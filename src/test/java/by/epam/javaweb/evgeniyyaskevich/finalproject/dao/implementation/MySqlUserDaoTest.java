@@ -63,18 +63,4 @@ public class MySqlUserDaoTest {
         user.setLevel(AccessLevel.ADMIN);
         dao.update(user);
     }
-
-
-
-    @org.testng.annotations.Test
-    public void testParseResultSet() {
-    }
-
-    @org.testng.annotations.Test
-    public void testPrepareStatementForInsert() {
-    }
-
-    @org.testng.annotations.Test
-    public void testPrepareStatementForUpdate() {
-    }
 }

@@ -10,14 +10,12 @@ public class LogInCommand implements ActionCommand {
     private static final String PARAM_NAME_PASSWORD = "password";
     private UserService userService = new UserService();
 
-    //TODO: move logic to service
-    //TODO: you need to replace any part of your program to minimize strength)
     @Override
     public String execute(HttpServletRequest request) {
         String page;
-
         String login = request.getParameter(PARAM_NAME_LOGIN);
         char[] password = request.getParameter(PARAM_NAME_PASSWORD).toCharArray();
+
         ResourceManager configManager = new ResourceManager("config");
         ResourceManager messageManager = new ResourceManager("messages");
 

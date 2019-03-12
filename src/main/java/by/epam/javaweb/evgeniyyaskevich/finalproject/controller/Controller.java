@@ -1,9 +1,8 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.controller;
 
-import by.epam.javaweb.evgeniyyaskevich.finalproject.command.ActionCommand;
-import by.epam.javaweb.evgeniyyaskevich.finalproject.command.ActionCommandFactory;
-import by.epam.javaweb.evgeniyyaskevich.finalproject.command.GetCarsByApplicationCommand;
-import by.epam.javaweb.evgeniyyaskevich.finalproject.command.GetDestinationsCommand;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.*;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.admin.GetParametersForAdminPanelCommand;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.client.GetDestinationsCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.ResourceManager;
 
 import javax.servlet.ServletException;
@@ -19,7 +18,7 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] page = req.getRequestURI().split("/");
         String currentPage = page[page.length - 1];
-        processRequest(req, resp, currentPage);
+        processRequest(req, currentPage);
 
         ResourceManager messageManager = new ResourceManager("config");
         String path = messageManager.getProperty("path.page." + currentPage);
@@ -28,28 +27,18 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*if (req.getParameter("command") != null) {
-            if (req.getParameter("command").equals("login")) {
-                LogInCommand signInCommand = new LogInCommand();
-                String page = signInCommand.execute(req);
-                getServletContext().getRequestDispatcher(page).forward(req, resp);
-            }
-        }
-        getServletContext().getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(req, resp);*/
         processPostRequest(req, resp);
     }
 
     private void processPostRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ActionCommandFactory commandFactory = ActionCommandFactory.getInstance();
-        String commandName = request.getParameter("command");
         ActionCommand currentCommand = commandFactory.defineCommand(request);
         if (currentCommand != null) {
             String page = currentCommand.execute(request);
-            //TODO: Post Redirect Get
             Object errorMessage = request.getAttribute("errorMessage");
             if (errorMessage != null) {
-                getServletContext().getRequestDispatcher(page).forward(request, response);
+                doGet(request, response);
             } else {
                 response.sendRedirect(getLocationFromPath(page));
             }
@@ -63,14 +52,14 @@ public class Controller extends HttpServlet {
         return s[s.length - 2];
     }
 
-    private void processRequest(HttpServletRequest request,
-                                HttpServletResponse response, String currentPage) {
+    private void processRequest(HttpServletRequest request, String currentPage) {
         switch (currentPage) {
             case "main":
                 new GetDestinationsCommand().execute(request);
+                new GetApplicationsCommand().execute(request);
+                new GetParametersForAdminPanelCommand().execute(request);
                 break;
             case "order":
-                new GetCarsByApplicationCommand().execute(request);
                 break;
         }
     }

@@ -96,10 +96,9 @@ public class MySqlUserDao extends AbstractUserDao {
     protected void prepareStatementForUpdate(PreparedStatement statement, User object) throws PersistException {
         try {
             statement.setObject(1, object.getName());
-            statement.setObject(2, object.getPassword());
-            statement.setObject(3, object.getBonus());
-            statement.setObject(4, object.getLevel().toString());
-            statement.setObject(5, object.getId());
+            statement.setObject(2, object.getBonus());
+            statement.setObject(3, object.getLevel().toString());
+            statement.setObject(4, object.getId());
         } catch (SQLException e) {
             throw new PersistException("Prepared Statement isn`t right.", e);
         }

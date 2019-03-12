@@ -1,7 +1,7 @@
 body {
     font-family: Arial, serif;
     background-color: #FFFFCC;
-    padding: 0px;
+    padding: 0;
     align-content: center;
 }
 
@@ -27,7 +27,7 @@ body {
 }
 
 .order-div {
-    text-align:center;
+    text-align: center;
 }
 
 .orderButton {

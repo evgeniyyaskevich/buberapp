@@ -1,6 +1,10 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.controller.filter;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.ServletRequest;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +26,7 @@ public class AuthorizationFilter implements Filter {
         Boolean isAuthorized = (Boolean) session.getAttribute("isAuthorized");
         if (isAuthorized != null) {
             if (isAuthorized) {
-                if (urlPattern.equals("login")) {
+                if (urlPattern.equals("login") || urlPattern.equals("register")) {
                     httpResponse.sendRedirect("main");
                 } else {
                     chain.doFilter(servletRequest, servletResponse);

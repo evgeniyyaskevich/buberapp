@@ -1,6 +1,7 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.entity;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Application extends BaseEntity {
     private long clientId;
@@ -65,5 +66,41 @@ public class Application extends BaseEntity {
 
     public void setState(ApplicationState state) {
         this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Application that = (Application) o;
+        return clientId == that.clientId &&
+                dateTime.equals(that.dateTime) &&
+                destination.equals(that.destination) &&
+                price.equals(that.price) &&
+                childSeat.equals(that.childSeat) &&
+                state == that.state &&
+                carType == that.carType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(clientId, dateTime, destination, price, childSeat, state, carType);
+    }
+
+    @Override
+    public String toString() {
+        return "Application{" +
+                "clientId=" + clientId +
+                ", dateTime=" + dateTime +
+                ", destination='" + destination + '\'' +
+                ", price=" + price +
+                ", childSeat=" + childSeat +
+                ", state=" + state +
+                ", carType=" + carType +
+                '}';
     }
 }

@@ -9,7 +9,7 @@ public class SqlConfig {
             "INSERT INTO User (user_name, password, level_access) VALUES (?, ?, ?);";
     public static final String DELETE_USER_QUERY = "DELETE FROM User WHERE user_id = ?";
     public static final String UPDATE_USER_QUERY =
-            "UPDATE User SET user_name = ?, password = ?, bonus = ?, level_access = ? WHERE user_id = ?;";
+            "UPDATE User SET user_name = ?, bonus = ?, level_access = ? WHERE user_id = ?;";
 
 
     public static final String SELECT_CAR_QUERY =
@@ -31,7 +31,8 @@ public class SqlConfig {
 
 
     public static final String SELECT_APPLICATION_QUERY =
-            "SELECT application_id, client_id, application_time, state, destination, price FROM Application";
+            "SELECT application_id, client_id, application_time, state, destination, price, child_seat" +
+                    " FROM Application";
     public static final String SELECT_APPLICATION_BY_ID =
             "SELECT application_id, client_id, application_time, state," +
                     "destination, price FROM Application WHERE application_id = ?";
