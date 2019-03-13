@@ -36,10 +36,10 @@ public class AcceptOrderCommand implements ActionCommand {
             }
 
             int orderNumber = Integer.parseInt(request.getParameter("orderNumber"));
-            Application currentOrder = applications.stream()
-                                            .filter(app -> app.getId() == orderNumber)
-                                            .collect(Collectors.toList())
-                                            .get(0);
+            List<Application> orders = applications.stream()
+                    .filter(app -> app.getId() == orderNumber)
+                    .collect(Collectors.toList());
+            Application currentOrder = (orders.isEmpty()) ? null : orders.get(0);
 
             if (currentOrder != null) {
                 currentOrder.setState(ApplicationState.ACCEPTED);

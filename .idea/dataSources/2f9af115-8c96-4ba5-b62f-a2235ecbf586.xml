@@ -1174,6 +1174,7 @@
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="293" parent="278" name="user_id">
       <Position>1</Position>
@@ -1197,6 +1198,7 @@
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="297" parent="279" name="car_id">
       <Position>1</Position>
@@ -1243,7 +1245,7 @@
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
-      <OnDelete>set-null</OnDelete>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="305" parent="280" name="destination_id">
       <Position>1</Position>
