@@ -1,8 +1,8 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation;
 
-import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.builder.UserBuilder;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.AbstractUserDao;
-import by.epam.javaweb.evgeniyyaskevich.finalproject.database.DBConnectionPool;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.database.connection.ProxyConnection;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.AccessLevel;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.User;
@@ -15,9 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySqlUserDao extends AbstractUserDao {
-    private static DBConnectionPool connectionPool = DBConnectionPool.getInstance();
 
-    public MySqlUserDao() {}
+    private static final class SingletonHolder {
+        private static final MySqlUserDao INSTANCE = new MySqlUserDao();
+    }
+
+    private MySqlUserDao() {}
+
+    public static MySqlUserDao getInstance() {
+        return MySqlUserDao.SingletonHolder.INSTANCE;
+    }
 
     @Override
     public String getSelectQueryById() {
@@ -49,8 +56,6 @@ public class MySqlUserDao extends AbstractUserDao {
         try (ProxyConnection connection = connectionPool.getConnection()) {
             User user;
             String sql = getSelectQuery() + " WHERE user_name = \"" + login + "\";";
-            //TODO: SELECT isn`t case sensitive. If you want to do case sensitive
-            //TODO: add collation to user_name field in database - https://stackoverflow.com/questions/6448825/sql-unique-varchar-case-sensitivity-question
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();
                 List<User> userList = parseResultSet(resultSet);
@@ -67,13 +72,13 @@ public class MySqlUserDao extends AbstractUserDao {
         List<User> result = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getLong("user_id"));
-                user.setName(resultSet.getString("user_name"));
-                user.setBonus(resultSet.getInt("bonus"));
-                user.setPassword(resultSet.getString("password"));
-                user.setLevel(AccessLevel.valueOf(resultSet.getString("level_access")));
-                result.add(user);
+                UserBuilder userBuilder = new UserBuilder();
+                userBuilder.setId(resultSet.getLong("user_id"))
+                        .setName(resultSet.getString("user_name"))
+                        .setBonus(resultSet.getInt("bonus"))
+                        .setPassword(resultSet.getString("password"))
+                        .setLevel(AccessLevel.valueOf(resultSet.getString("level_access")));
+                result.add(userBuilder.build());
             }
         } catch (SQLException e) {
             throw new PersistException("ResultSet problems.", e);

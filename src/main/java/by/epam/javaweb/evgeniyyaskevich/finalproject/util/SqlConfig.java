@@ -46,6 +46,9 @@ public class SqlConfig {
 
     public static final String SELECT_DESTINATION_QUERY =
             "SELECT destination_id, destination_name, south_coord, north_coord FROM Destination";
+    public static final String SELECT_DESTINATION_QUERY_BY_ID =
+            "SELECT destination_id, destination_name, south_coord, north_coord FROM Destination" +
+                    " WHERE destination_id = ?";
     public static final String INSERT_DESTINATION_QUERY =
             "INSERT Destination (destination_name, south_coord, north_coord) VALUE (?, ?, ?);";
     public static final String DELETE_DESTINATION_QUERY =

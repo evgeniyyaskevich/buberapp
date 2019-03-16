@@ -13,7 +13,7 @@ import java.util.List;
 
 public class GetDestinationsCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(GetDestinationsCommand.class);
-    private MySqlDestinationDao destinationDao = new MySqlDestinationDao();
+    private MySqlDestinationDao destinationDao = MySqlDestinationDao.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

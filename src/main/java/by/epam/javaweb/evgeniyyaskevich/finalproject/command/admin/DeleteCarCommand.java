@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class DeleteCarCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(DeleteCarCommand.class);
-    private MySqlCarDao carDao = new MySqlCarDao();
+    private MySqlCarDao carDao = MySqlCarDao.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

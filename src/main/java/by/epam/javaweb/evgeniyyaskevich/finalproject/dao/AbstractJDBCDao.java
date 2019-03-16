@@ -53,7 +53,7 @@ public abstract class AbstractJDBCDao<T extends BaseEntity> implements GenericDa
             }
 
             if (list != null && list.size() != 0) {
-                return list.iterator().next();
+                return list.get(0);
             } else {
                 return null;
             }

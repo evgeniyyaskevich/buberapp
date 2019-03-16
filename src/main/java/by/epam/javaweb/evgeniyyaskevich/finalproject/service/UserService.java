@@ -14,7 +14,7 @@ import java.security.spec.InvalidKeySpecException;
 
 public class UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
-    private MySqlUserDao userDao = new MySqlUserDao();
+    private MySqlUserDao userDao = MySqlUserDao.getInstance();
 
     public boolean checkPassword(String login, char[] password) {
         boolean result;

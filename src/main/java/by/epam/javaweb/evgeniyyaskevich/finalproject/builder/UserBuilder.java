@@ -15,8 +15,9 @@ public class UserBuilder {
         return this;
     }
 
-    public void setPassword(String password) {
+    public UserBuilder setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public UserBuilder setLevel(AccessLevel level) {

@@ -7,6 +7,7 @@ import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.CarType;
 import java.time.LocalDateTime;
 
 public class ApplicationBuilder {
+    private long id;
     private long clientId;
     private LocalDateTime dateTime;
     private String destination;
@@ -14,6 +15,11 @@ public class ApplicationBuilder {
     private Boolean childSeat = false;
     private ApplicationState state = ApplicationState.WAITING;
     private CarType carType = CarType.UNIVERSAL;
+
+    public ApplicationBuilder setId(long id) {
+        this.id = id;
+        return this;
+    }
 
     public ApplicationBuilder setClientId(long clientId) {
         this.clientId = clientId;
@@ -59,6 +65,7 @@ public class ApplicationBuilder {
         newApplication.setChildSeat(childSeat);
         newApplication.setState(state);
         newApplication.setCarType(carType);
+        newApplication.setId(id);
         return newApplication;
     }
 }

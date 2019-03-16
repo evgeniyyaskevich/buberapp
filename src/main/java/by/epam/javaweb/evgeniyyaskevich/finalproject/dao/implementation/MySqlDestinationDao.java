@@ -1,5 +1,6 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation;
 
+import by.epam.javaweb.evgeniyyaskevich.finalproject.builder.DestinationBuilder;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.AbstractDestinationDao;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Destination;
@@ -13,7 +14,15 @@ import java.util.List;
 
 public class MySqlDestinationDao extends AbstractDestinationDao {
 
-    public MySqlDestinationDao() {}
+    private static final class SingletonHolder {
+        private static final MySqlDestinationDao INSTANCE = new MySqlDestinationDao();
+    }
+
+    private MySqlDestinationDao() {}
+
+    public static MySqlDestinationDao getInstance() {
+        return MySqlDestinationDao.SingletonHolder.INSTANCE;
+    }
 
     @Override
     public String getSelectQuery() {
@@ -22,7 +31,7 @@ public class MySqlDestinationDao extends AbstractDestinationDao {
 
     @Override
     public String getSelectQueryById() {
-        return null;
+        return SqlConfig.SELECT_DESTINATION_QUERY_BY_ID;
     }
 
     @Override
@@ -45,12 +54,12 @@ public class MySqlDestinationDao extends AbstractDestinationDao {
         List<Destination> result = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                Destination destination = new Destination();
-                destination.setId(resultSet.getLong("destination_id"));
-                destination.setName(resultSet.getString("destination_name"));
-                destination.setNorthCoord(resultSet.getInt("north_coord"));
-                destination.setSouthCoord(resultSet.getInt("south_coord"));
-                result.add(destination);
+                DestinationBuilder destinationBuilder = new DestinationBuilder();
+                destinationBuilder.setId(resultSet.getLong("destination_id"))
+                        .setName(resultSet.getString("destination_name"))
+                        .setNorthCoord(resultSet.getInt("north_coord"))
+                        .setSouthCoord(resultSet.getInt("south_coord"));
+                result.add(destinationBuilder.build());
             }
         } catch (SQLException e) {
             throw new PersistException("Result set problems.", e);

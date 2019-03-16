@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class UpdateUserCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(UpdateUserCommand.class);
-    private MySqlUserDao userDao = new MySqlUserDao();
+    private MySqlUserDao userDao = MySqlUserDao.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

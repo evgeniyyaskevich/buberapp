@@ -22,7 +22,7 @@ public class MySqlApplicationDaoTest {
     public void openPool() throws DBDriverClassNotFoundException, DBPropertiesFileError, IncorrectDBPropertiesException {
         pool = DBConnectionPool.getInstance();
         pool.init(5);
-        dao = new MySqlApplicationDao();
+        dao = MySqlApplicationDao.getInstance();
     }
 
     @AfterClass

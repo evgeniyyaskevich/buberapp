@@ -22,7 +22,7 @@ public class MySqlBlackListDaoTest {
     public void openPool() throws DBDriverClassNotFoundException, DBPropertiesFileError, IncorrectDBPropertiesException {
         pool = DBConnectionPool.getInstance();
         pool.init(5);
-        dao = new MySqlBlackListDao();
+        dao = MySqlBlackListDao.getInstance();
     }
 
     @AfterClass

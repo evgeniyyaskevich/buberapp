@@ -12,7 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySqlBlackListDao extends AbstractBlackListDao {
-    public MySqlBlackListDao() {}
+
+    private static final class SingletonHolder {
+        private static final MySqlBlackListDao INSTANCE = new MySqlBlackListDao();
+    }
+
+    private MySqlBlackListDao() {}
+
+    public static MySqlBlackListDao getInstance() {
+        return MySqlBlackListDao.SingletonHolder.INSTANCE;
+    }
 
     @Override
     public String getSelectQuery() {
@@ -56,7 +65,8 @@ public class MySqlBlackListDao extends AbstractBlackListDao {
     }
 
     @Override
-    protected void prepareStatementForInsert(PreparedStatement statement, BlackListRecord object) throws PersistException {
+    protected void prepareStatementForInsert(PreparedStatement statement, BlackListRecord object)
+            throws PersistException {
         try {
             statement.setObject(1, object.getUserId());
             statement.setObject(2, object.getReason());
@@ -66,7 +76,8 @@ public class MySqlBlackListDao extends AbstractBlackListDao {
     }
 
     @Override
-    protected void prepareStatementForUpdate(PreparedStatement statement, BlackListRecord object) throws PersistException {
+    protected void prepareStatementForUpdate(PreparedStatement statement, BlackListRecord object)
+            throws PersistException {
         try {
             statement.setObject(1, object.getReason());
             statement.setObject(2, object.getUserId());

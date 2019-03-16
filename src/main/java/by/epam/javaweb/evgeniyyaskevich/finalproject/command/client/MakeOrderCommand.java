@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 public class MakeOrderCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(MakeOrderCommand.class);
-    private MySqlApplicationDao applicationDao = new MySqlApplicationDao();
+    private MySqlApplicationDao applicationDao = MySqlApplicationDao.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class DeleteUserCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(DeleteUserCommand.class);
-    private MySqlUserDao userDao = new MySqlUserDao();
+    private MySqlUserDao userDao = MySqlUserDao.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

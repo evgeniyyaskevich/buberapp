@@ -17,8 +17,8 @@ import java.util.*;
 
 public class GetApplicationsCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(GetApplicationsCommand.class);
-    private MySqlApplicationDao applicationDao = new MySqlApplicationDao();
-    private MySqlCarDao carDao = new MySqlCarDao();
+    private MySqlApplicationDao applicationDao = MySqlApplicationDao.getInstance();
+    private MySqlCarDao carDao = MySqlCarDao.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

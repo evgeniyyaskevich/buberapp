@@ -1,5 +1,6 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation;
 
+import by.epam.javaweb.evgeniyyaskevich.finalproject.builder.CarBuilder;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.AbstractCarDao;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.database.connection.ProxyConnection;
@@ -14,7 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySqlCarDao extends AbstractCarDao {
-    public MySqlCarDao() {}
+
+    private static final class SingletonHolder {
+        private static final MySqlCarDao INSTANCE = new MySqlCarDao();
+    }
+
+    private MySqlCarDao() {}
+
+    public static MySqlCarDao getInstance() {
+        return MySqlCarDao.SingletonHolder.INSTANCE;
+    }
 
     @Override
     public String getSelectQueryById() {
@@ -59,13 +69,13 @@ public class MySqlCarDao extends AbstractCarDao {
         List<Car> result = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                Car car = new Car();
-                car.setId(resultSet.getLong("car_id"));
-                car.setType(CarType.valueOf(resultSet.getString("car_type")));
-                car.setBrand(resultSet.getString("car_brand"));
-                car.setChildSeat(resultSet.getBoolean("child_seat"));
-                car.setDriverId(resultSet.getLong("driver_id"));
-                result.add(car);
+                CarBuilder carBuilder = new CarBuilder();
+                carBuilder.setId(resultSet.getLong("car_id"))
+                        .setType(CarType.valueOf(resultSet.getString("car_type")))
+                        .setBrand(resultSet.getString("car_brand"))
+                        .setChildSeat(resultSet.getBoolean("child_seat"))
+                        .setDriverId(resultSet.getLong("driver_id"));
+                result.add(carBuilder.build());
             }
         } catch (SQLException e) {
             throw new PersistException("Result set problems.", e);

@@ -1,5 +1,6 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation;
 
+import by.epam.javaweb.evgeniyyaskevich.finalproject.builder.ApplicationBuilder;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.AbstractApplicationDao;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.database.connection.ProxyConnection;
@@ -18,7 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySqlApplicationDao extends AbstractApplicationDao {
-    public MySqlApplicationDao() {}
+
+    private static final class SingletonHolder {
+        private static final MySqlApplicationDao INSTANCE = new MySqlApplicationDao();
+    }
+
+    private MySqlApplicationDao() {}
+
+    public static MySqlApplicationDao getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
 
     @Override
     public String getSelectQuery() {
@@ -61,8 +71,10 @@ public class MySqlApplicationDao extends AbstractApplicationDao {
     @Override
     public List<Application> getByCar(Car car) throws PersistException {
         try (ProxyConnection connection = connectionPool.getConnection()) {
-            String sql = getSelectQuery() + " WHERE state = \"WAITING\" AND car_type = \"" + car.getType().toString() +
-                    "\" AND child_seat = " + car.getChildSeat() + ";";
+            String sql = getSelectQuery() + " WHERE state = \"WAITING\" AND car_type = \"" + car.getType().toString();
+            if (car.getChildSeat()) {
+                sql += "\" AND child_seat = " + car.getChildSeat() + ";";
+            }
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();
                 return parseResultSet(resultSet);
@@ -77,22 +89,22 @@ public class MySqlApplicationDao extends AbstractApplicationDao {
         List<Application> result = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                Application application = new Application();
-                application.setId(resultSet.getLong("application_id"));
-                application.setClientId(resultSet.getLong("client_id"));
-                application.setDestination(resultSet.getString("destination"));
-                application.setPrice(resultSet.getInt("price"));
-                Boolean flag = resultSet.getBoolean("child_seat");
-                application.setChildSeat(resultSet.getBoolean("child_seat"));
-                application.setCarType(CarType.valueOf(resultSet.getString("car_type")));
 
+                String applicationTime = resultSet.getString("application_time");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                LocalDateTime dateTime =
-                        LocalDateTime.from(formatter.parse(resultSet.getString("application_time")));
-                application.setDateTime(LocalDateTime.from(dateTime));
+                LocalDateTime dateTime = LocalDateTime.from(formatter.parse(applicationTime));
 
-                application.setState(ApplicationState.valueOf(resultSet.getString("state")));
-                result.add(application);
+                ApplicationBuilder applicationBuilder= new ApplicationBuilder();
+                applicationBuilder.setDateTime(LocalDateTime.from(dateTime))
+                        .setId(resultSet.getLong("application_id"))
+                        .setClientId(resultSet.getLong("client_id"))
+                        .setDestination(resultSet.getString("destination"))
+                        .setPrice(resultSet.getInt("price"))
+                        .setChildSeat(resultSet.getBoolean("child_seat"))
+                        .setCarType(CarType.valueOf(resultSet.getString("car_type")))
+                        .setState(ApplicationState.valueOf(resultSet.getString("state")));
+
+                result.add(applicationBuilder.build());
             }
         } catch (SQLException e) {
             throw new PersistException("Result set problems.", e);
@@ -115,7 +127,6 @@ public class MySqlApplicationDao extends AbstractApplicationDao {
     }
 
 
-    //TODO: check this preparing
     @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, Application object) throws PersistException {
         try {

@@ -17,8 +17,8 @@ import java.util.List;
 
 public class GetParametersForAdminPanelCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(GetParametersForAdminPanelCommand.class);
-    private MySqlUserDao userDao = new MySqlUserDao();
-    private MySqlCarDao carDao = new MySqlCarDao();
+    private MySqlUserDao userDao = MySqlUserDao.getInstance();
+    private MySqlCarDao carDao = MySqlCarDao.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

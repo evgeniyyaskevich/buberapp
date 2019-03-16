@@ -36,8 +36,9 @@ public class CarBuilder {
         return this;
     }
 
-    public void setId(Long id) {
+    public CarBuilder setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public Car build() {
