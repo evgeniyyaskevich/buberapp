@@ -3,8 +3,3 @@
 <%@ page isELIgnored="false" %>
 
 <c:redirect url="/main"/>
-
-<fmt:bundle basename="config">
-    <fmt:message key="path.page.login" var="var"/>
-    <jsp:forward page="${var}"/>
-</fmt:bundle>
