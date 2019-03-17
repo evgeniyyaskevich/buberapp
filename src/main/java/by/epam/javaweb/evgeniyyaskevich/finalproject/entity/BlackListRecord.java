@@ -2,12 +2,14 @@ package by.epam.javaweb.evgeniyyaskevich.finalproject.entity;
 
 import java.util.Objects;
 
-//TODO: equals() and hashCode() for all entities!
 public class BlackListRecord extends BaseEntity {
     private String reason;
 
-    public BlackListRecord() {
-        super();
+    public BlackListRecord() {}
+
+    public BlackListRecord(long id, String reason) {
+        super(id);
+        this.reason = reason;
     }
 
     public long getUserId() {

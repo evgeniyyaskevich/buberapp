@@ -37,6 +37,24 @@
                     </tbody>
                 </table>
 
+                <h3 align="center">Black List</h3>
+                <table border="1" cellpadding="3" cellspacing="0" align="center">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>reason</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${blackListRecords}" var="record">
+                        <tr>
+                            <th>${record.userId}</th>
+                            <th>${record.reason}</th>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+
                 <h3 align="center">Update user</h3>
                 <form action="main" method="post">
                     <input type="hidden" name="command" value="update_user">
@@ -68,6 +86,21 @@
                         </c:forEach>
                     </select> </label>
                     <input type="submit" value="Delete" align="center" class="great_btn">
+                </form>
+
+                <br>
+                <h3 align="center">Add to Black List</h3>
+                <form action="main" method="POST">
+                    <input type="hidden" name="command" value="add_user_to_black_list">
+                    Who :
+                    <label> <select name="user_id">
+                        <c:forEach items="${users}" var="user">
+                            <option value="${user.id}">${user.name}</option>
+                        </c:forEach>
+                    </select> </label>
+                    Reason :
+                    <label> <input type="text" name="reason"> </label>
+                    <input type="submit" value="Add" align="center" class="great_btn">
                 </form>
             </section>
 
@@ -101,7 +134,7 @@
                         <select name="driver_id">
                             <c:forEach items="${users}" var="user">
                                 <c:if test="${user.level eq 'DRIVER'}">
-                                    <option value="${user.id}">${user.name}</option>
+                                    <option value="${user.id}">${user.name}(id=${user.id})</option>
                                 </c:if>
                             </c:forEach>
                         </select>
@@ -114,7 +147,7 @@
                         <option value="UNIVERSAL">UNIVERSAL</option>
                     </select> </label>
                     <label> <input type="checkbox" name="child_seat" value="true">Child Seat</label>
-                    <input type="submit" value="Add" class="great_btn">
+                    <br> <br> <input type="submit" value="Add" class="great_btn">
                 </form>
 
 

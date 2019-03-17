@@ -7,8 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 public class RegisterCommand implements ActionCommand {
-    private UserService userService = new UserService();
-    //TODO: DAO should be singleton
+    private UserService userService = UserService.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

@@ -2,7 +2,9 @@ package by.epam.javaweb.evgeniyyaskevich.finalproject.service;
 
 import by.epam.javaweb.evgeniyyaskevich.finalproject.builder.UserBuilder;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation.MySqlBlackListDao;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation.MySqlUserDao;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.BlackListRecord;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.User;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.PasswordManager;
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +17,17 @@ import java.security.spec.InvalidKeySpecException;
 public class UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
     private MySqlUserDao userDao = MySqlUserDao.getInstance();
+    private MySqlBlackListDao blackListDao = MySqlBlackListDao.getInstance();
+
+    private static final class SingletonHolder {
+        private static final UserService INSTANCE = new UserService();
+    }
+
+    private UserService() {}
+
+    public static UserService getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
 
     public boolean checkPassword(String login, char[] password) {
         boolean result;
@@ -42,6 +55,17 @@ public class UserService {
             LOGGER.error(e.getMessage());
             return false;
         }
+    }
+
+    public boolean isBanned(String login) {
+        try {
+            User user = userDao.getByLogin(login);
+            BlackListRecord record = blackListDao.getById(user.getId());
+            return record != null;
+        } catch (PersistException e) {
+            LOGGER.error(e);
+        }
+        return false;
     }
 
     public boolean register(String login, char[] password) {

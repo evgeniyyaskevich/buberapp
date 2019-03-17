@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LogInCommand implements ActionCommand {
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
-    private UserService userService = new UserService();
+    private UserService userService = UserService.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -21,8 +21,13 @@ public class LogInCommand implements ActionCommand {
 
         if (userService.isUserExist(login)) {
             if (userService.checkPassword(login, password)) {
-                userService.fillSession(request.getSession(), login);
-                page = configManager.getProperty("path.page.main");
+                if (userService.isBanned(login)) {
+                    request.setAttribute("errorMessage", messageManager.getProperty("message.banned"));
+                    page = configManager.getProperty("path.page.login");
+                } else {
+                    userService.fillSession(request.getSession(), login);
+                    page = configManager.getProperty("path.page.main");
+                }
             } else {
                 request.setAttribute("errorMessage", messageManager.getProperty("message.password_error"));
                 page = configManager.getProperty("path.page.login");

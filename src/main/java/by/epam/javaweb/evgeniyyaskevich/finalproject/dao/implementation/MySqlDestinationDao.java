@@ -3,6 +3,7 @@ package by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.builder.DestinationBuilder;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.AbstractDestinationDao;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.database.connection.ProxyConnection;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Destination;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.SqlConfig;
 
@@ -89,6 +90,20 @@ public class MySqlDestinationDao extends AbstractDestinationDao {
             statement.setObject(3, object.getName());
         } catch (SQLException e) {
             throw new PersistException("Prepared Statement isn`t right.", e);
+        }
+    }
+
+    @Override
+    public Destination getByName(String destination) throws PersistException {
+        try (ProxyConnection connection = connectionPool.getConnection()) {
+            String sql = getSelectQuery() + " WHERE destination_name = \'" + destination + "\'";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                ResultSet result = statement.executeQuery();
+                List<Destination> list = parseResultSet(result);
+                return (list.isEmpty()) ? null : list.get(0);
+            } catch (SQLException e) {
+                throw new PersistException(e);
+            }
         }
     }
 }

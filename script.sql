@@ -51,7 +51,7 @@ CREATE TABLE Destination (
 
 
 CREATE TABLE Black_list (
-	user_id INT NOT NULL,
+	user_id INT NOT NULL UNIQUE,
     reason VARCHAR(50),
     PRIMARY KEY (user_id),
     FOREIGN KEY (user_id) REFERENCES User (user_id)
@@ -84,6 +84,17 @@ COMMIT;
 
 BEGIN;
 INSERT INTO User (user_name, password, level_access)
+VALUES ("driver", "1000:a0939358951708289b6fdad6430481ee:b3812713a5adc86bc57f01c692d8a8351f4668ad333391e30b475f8b2009cb5b46b863f61ae2b0135752b4a1ce7408ab339d80be9a2e32e6531fa5433104b7e3",
+				"DRIVER");
+INSERT INTO Car (car_brand, driver_id, car_type) 
+VALUES ("Peugeout", last_insert_id(), "UNIVERSAL");
+COMMIT;
+
+		
+
+
+BEGIN;
+INSERT INTO User (user_name, password, level_access)
 VALUES ("Elizaveta", "1000:aab5873267db96d8890bb69a6308bdcb:bb6eb3c838dd0125a208f36a628dd67a196cf1c3735c4bcb4c11b5b67a30f8a151342462697fe67ebade2f708e4b7d85991274f7471d06b2e774312b6cb1c7f2",
 		"CLIENT");
 INSERT INTO Application (client_id, destination, price, state, car_type) 
@@ -93,7 +104,9 @@ COMMIT;
 INSERT INTO Destination (destination_name, south_coord, north_coord)
 VALUES ("Renaissance Hotel", 15, 35),
 		("BSU Main Building", 10, 12),
-        ("BSU Domitory #6", 100, 13);
+        ("BSU Domitory #6", 100, 13),
+        ("Gorky Park", 200, 133),
+        ("Minsk Center", 300, 250);
 
 
 INSERT INTO Black_list (user_id, reason)

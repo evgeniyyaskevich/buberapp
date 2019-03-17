@@ -71,9 +71,10 @@ public class MySqlApplicationDao extends AbstractApplicationDao {
     @Override
     public List<Application> getByCar(Car car) throws PersistException {
         try (ProxyConnection connection = connectionPool.getConnection()) {
-            String sql = getSelectQuery() + " WHERE state = \"WAITING\" AND car_type = \"" + car.getType().toString();
+            String sql = getSelectQuery() + " WHERE state = \"WAITING\" AND car_type = \"" + car.getType().toString() +
+                    "\"";
             if (car.getChildSeat()) {
-                sql += "\" AND child_seat = " + car.getChildSeat() + ";";
+                sql += " AND child_seat = " + car.getChildSeat() + ";";
             }
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();

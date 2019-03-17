@@ -32,6 +32,11 @@ public enum CommandEnum {
             this.command = new UpdateUserCommand();
         }
     },
+    ADD_USER_TO_BLACK_LIST {
+        {
+            this.command = new AddUserToBlackListCommand();
+        }
+    },
     ADD_CAR {
         {
             this.command = new AddCarCommand();

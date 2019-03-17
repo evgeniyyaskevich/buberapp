@@ -2,7 +2,9 @@ package by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation;
 
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.AbstractBlackListDao;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.database.connection.ProxyConnection;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.BlackListRecord;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.User;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.SqlConfig;
 
 import java.sql.PreparedStatement;
