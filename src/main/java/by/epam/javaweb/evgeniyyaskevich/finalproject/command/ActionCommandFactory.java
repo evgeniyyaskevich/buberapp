@@ -25,7 +25,7 @@ public class ActionCommandFactory {
             CommandEnum currentEnum = CommandEnum.valueOf(actionName.toUpperCase());
             currentCommand = currentEnum.getCommand();
         } catch (IllegalArgumentException e) {
-            LOGGER.error(e);
+            LOGGER.error("ActionCommand Problem: ", e);
         }
         return currentCommand;
     }

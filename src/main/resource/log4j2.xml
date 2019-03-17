@@ -10,19 +10,22 @@
             <PatternLayout pattern="%d{HH:mm:ss} - [%-5p] - %m%n"/>
         </Console>
 
+        <FILE name="TRACEFILE" fileName="${log4j:configParentLocation}/logs/Trace.log">
+            <PatternLayout pattern="%d{ABSOLUTE} [%-5p] (%F:%M:%L) - %m%n"/>
+        </FILE>
+
         <File name="DEBUGFILE" fileName="${log4j:configParentLocation}/logs/Debug.log">
             <PatternLayout pattern="%d{ABSOLUTE} [%-5p] (%F:%M:%L) - %m%n"/>
         </File>
     </Appenders>
 
     <Loggers>
-
         <Root level="TRACE">
             <Appender-ref ref="STDOUT"/>
             <Appender-ref ref="DEBUGFILE" level="DEBUG"/>
             <Appender-ref ref="ERRORFILE" level="ERROR"/>
+            <Appender-ref ref="TRACEFILE" level="TRACE"/>
         </Root>
-
     </Loggers>
 
 </Configuration>

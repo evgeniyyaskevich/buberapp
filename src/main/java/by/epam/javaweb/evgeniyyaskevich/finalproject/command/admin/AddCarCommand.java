@@ -30,7 +30,7 @@ public class AddCarCommand implements ActionCommand {
                     .setChildSeat(childSeat);
             carDao.insert(carBuilder.build());
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("Dao problems: ", e);
         }
         return new ResourceManager("config").getProperty("path.page.main");
     }

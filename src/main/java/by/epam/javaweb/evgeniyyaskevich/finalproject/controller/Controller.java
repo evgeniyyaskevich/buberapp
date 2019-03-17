@@ -1,6 +1,8 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.controller;
 
-import by.epam.javaweb.evgeniyyaskevich.finalproject.command.*;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.ActionCommand;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.ActionCommandFactory;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.GetApplicationsCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.command.admin.GetParametersForAdminPanelCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.command.client.GetDestinationsCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.ResourceManager;

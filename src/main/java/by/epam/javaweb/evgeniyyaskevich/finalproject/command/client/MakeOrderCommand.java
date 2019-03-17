@@ -24,7 +24,7 @@ public class MakeOrderCommand implements ActionCommand {
             applicationDao.insert(application);
             return configManager.getProperty("path.page.successOrder");
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("ApplicationDaoProblem: ", e);
             request.setAttribute("errorMessage", "Order wasn`t insert.");
             return configManager.getProperty("path.page.error");
         }

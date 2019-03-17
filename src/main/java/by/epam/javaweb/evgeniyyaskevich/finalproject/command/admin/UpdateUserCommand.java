@@ -27,7 +27,7 @@ public class UpdateUserCommand implements ActionCommand {
                         .setName(name);
             userDao.update(userBuilder.build());
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("UserDao problems: ", e);
         }
         return new ResourceManager("config").getProperty("path.page.main");
     }

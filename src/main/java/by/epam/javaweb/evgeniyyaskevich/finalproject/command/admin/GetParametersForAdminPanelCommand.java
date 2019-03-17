@@ -37,7 +37,7 @@ public class GetParametersForAdminPanelCommand implements ActionCommand {
                 request.setAttribute("blackListRecords", blackListRecords);
             }
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("Dao problems: ", e);
         }
         return new ResourceManager("config").getProperty("path.page.main");
     }

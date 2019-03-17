@@ -41,7 +41,7 @@ public class OrderService {
         try {
             destination = destinationDao.getByName(destinationName);
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("DestinationDao problem: ", e);
         }
         int first = Math.abs(currentNorth - destination.getNorthCoord());
         int second = Math.abs(currentSouth - destination.getSouthCoord());

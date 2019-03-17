@@ -22,7 +22,7 @@ public class AddUserToBlackListCommand implements ActionCommand {
         try {
             blackListDao.insert(record);
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("BlackListDao problem: ", e);
         }
         return new ResourceManager("config").getProperty("path.page.main");
     }

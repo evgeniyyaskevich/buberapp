@@ -22,7 +22,7 @@ public class DeleteUserCommand implements ActionCommand {
             userBuilder.setId(id);
             userDao.delete(userBuilder.build());
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("Dao problems: ", e);
         }
         return new ResourceManager("config").getProperty("path.page.main");
     }

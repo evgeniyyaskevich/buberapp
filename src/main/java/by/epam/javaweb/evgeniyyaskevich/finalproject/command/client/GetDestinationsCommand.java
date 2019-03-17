@@ -21,7 +21,7 @@ public class GetDestinationsCommand implements ActionCommand {
             List<Destination> destinationList = destinationDao.getAll();
             request.setAttribute("destinations", destinationList);
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("DestinationDao problems: ", e);
         }
         return new ResourceManager("config").getProperty("path.page.main");
     }

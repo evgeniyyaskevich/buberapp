@@ -52,7 +52,7 @@ public class UserService {
             User user = userDao.getByLogin(login);
             return user != null;
         } catch (PersistException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("UserService problem: ", e);
             return false;
         }
     }
@@ -63,7 +63,7 @@ public class UserService {
             BlackListRecord record = blackListDao.getById(user.getId());
             return record != null;
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("UserService problem: ", e);
         }
         return false;
     }
@@ -77,7 +77,7 @@ public class UserService {
             userDao.insert(userBuilder.build());
             return true;
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("UserService problem: ", e);
             return false;
         }
     }
@@ -87,7 +87,7 @@ public class UserService {
         try {
             user = userDao.getByLogin(login);
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("UserService problem: ", e);
         }
         return user;
     }

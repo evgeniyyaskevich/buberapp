@@ -22,7 +22,7 @@ public class DeleteCarCommand implements ActionCommand {
             carBuilder.setId(id);
             carDao.delete(carBuilder.build());
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("CarDao problems: ", e);
         }
         return new ResourceManager("config").getProperty("path.page.main");
     }

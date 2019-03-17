@@ -48,7 +48,7 @@ public class AcceptOrderCommand implements ActionCommand {
                 request.setAttribute("errorMessage", "Unknown order number");
             }
         } catch (PersistException e) {
-            LOGGER.error(e);
+            LOGGER.error("Dao problems: ", e);
         }
         return new ResourceManager("config").getProperty("path.page.main");
     }
