@@ -1,4 +1,4 @@
-package by.epam.javaweb.evgeniyyaskevich.finalproject.controller;
+package by.epam.javaweb.evgeniyyaskevich.finalproject.controller.wrapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

@@ -1,6 +1,6 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.controller.filter;
 
-import by.epam.javaweb.evgeniyyaskevich.finalproject.controller.XssRequestWrapper;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.controller.wrapper.XssRequestWrapper;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
