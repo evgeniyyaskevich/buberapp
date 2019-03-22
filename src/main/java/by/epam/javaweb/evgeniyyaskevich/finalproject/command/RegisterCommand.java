@@ -5,6 +5,7 @@ import by.epam.javaweb.evgeniyyaskevich.finalproject.util.ResourceManager;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class RegisterCommand implements ActionCommand {
     private UserService userService = UserService.getInstance();
@@ -16,10 +17,15 @@ public class RegisterCommand implements ActionCommand {
         char[] password = request.getParameter("password").toCharArray();
         char[] confirmPassword = request.getParameter("confirmPassword").toCharArray();
 
+        String language = (String) request.getSession().getAttribute("language");
         ResourceManager configManager = new ResourceManager("config");
-        ResourceManager messageManager = new ResourceManager("messages");
+        ResourceManager messageManager = new ResourceManager("messages", new Locale(language));
 
-        if (userService.isUserExist(login)) {
+
+        if (!userService.validateLogin(login)) {
+            request.setAttribute("errorMessage", messageManager.getProperty("message.invalid_login"));
+            page = configManager.getProperty("path.page.register");
+        } else if (userService.isUserExist(login)) {
             request.setAttribute("errorMessage", messageManager.getProperty("message.taken_login_error"));
             page = configManager.getProperty("path.page.register");
         } else if (Arrays.equals(password, confirmPassword)) {
@@ -31,6 +37,7 @@ public class RegisterCommand implements ActionCommand {
                     messageManager.getProperty("message.confirm_password_error"));
             page = configManager.getProperty("path.page.register");
         }
+
         return page;
     }
 }

@@ -32,17 +32,7 @@ body {
     text-align: center;
 }
 
-.control-group {
-    margin-bottom: 10px;
-}
-
-.error-message {
-    font-family: Arial, serif;
-    color: red;
-    font-weight: bold;
-}
-
-input {
+.login-form input {
     text-align: center;
     background-color: #ECF0F1;
     border: 2px solid transparent;
@@ -54,7 +44,17 @@ input {
     transition: border .5s;
 }
 
-input:focus {
+.control-group {
+    margin-bottom: 10px;
+}
+
+.error-message {
+    font-family: Arial, serif;
+    color: red;
+    font-weight: bold;
+}
+
+.login-form input:focus {
     border: 2px solid #3498DB;
     box-shadow: none;
 }
@@ -78,6 +78,10 @@ input:focus {
 
 .btn:hover {
     background-color: #2980B9;
+}
+
+.btn-submit input {
+    background: #3498DB;
 }
 
 .register-link {

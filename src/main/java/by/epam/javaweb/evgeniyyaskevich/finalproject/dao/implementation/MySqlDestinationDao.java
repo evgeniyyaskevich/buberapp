@@ -85,9 +85,10 @@ public class MySqlDestinationDao extends AbstractDestinationDao {
     protected void prepareStatementForUpdate(PreparedStatement statement, Destination object)
             throws PersistException {
         try {
-            statement.setObject(1, object.getNorthCoord());
-            statement.setObject(2, object.getSouthCoord());
-            statement.setObject(3, object.getName());
+            statement.setObject(1, object.getName());
+            statement.setObject(2, object.getNorthCoord());
+            statement.setObject(3, object.getSouthCoord());
+            statement.setObject(4, object.getId());
         } catch (SQLException e) {
             throw new PersistException("Prepared Statement isn`t right.", e);
         }

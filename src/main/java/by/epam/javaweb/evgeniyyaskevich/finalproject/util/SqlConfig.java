@@ -34,7 +34,7 @@ public class SqlConfig {
             "SELECT application_id, client_id, application_time, state, destination, price, child_seat, car_type" +
                     " FROM Application";
     public static final String SELECT_APPLICATION_BY_ID =
-            "SELECT application_id, client_id, application_time, state," +
+            "SELECT application_id, client_id, child_seat, car_type, application_time, state," +
                     "destination, price FROM Application WHERE application_id = ?";
     public static final String INSERT_APPLICATION_QUERY =
             "INSERT Application (client_id, state, destination, price, child_seat, car_type) VALUES (?, ?, ?, ?, ?, ?);";
@@ -54,6 +54,6 @@ public class SqlConfig {
     public static final String DELETE_DESTINATION_QUERY =
             "DELETE FROM Destination WHERE destination_id = ?;";
     public static final String UPDATE_DESTINATION_QUERY =
-            "UPDATE Destination SET north_coord = ?, south_coord = ? WHERE destination_name = ?;";
+            "UPDATE Destination SET destination_name = ?, north_coord = ?, south_coord = ? WHERE destination_id = ?;";
 
 }

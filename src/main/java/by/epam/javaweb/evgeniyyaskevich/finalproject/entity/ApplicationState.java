@@ -2,7 +2,8 @@ package by.epam.javaweb.evgeniyyaskevich.finalproject.entity;
 
 public enum ApplicationState {
     WAITING("waiting"),
-    ACCEPTED("accepted");
+    ACCEPTED("accepted"),
+    CANCELED("canceled");
 
     private String name;
 

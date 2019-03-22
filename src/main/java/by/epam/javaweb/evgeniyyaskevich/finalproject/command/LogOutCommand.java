@@ -9,7 +9,7 @@ public class LogOutCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.invalidate();
+        session.setAttribute("isAuthorized", false);
         return new ResourceManager("config").getProperty("path.page.login");
     }
 }

@@ -7,6 +7,7 @@ import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation.MySqlUse
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.BlackListRecord;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.User;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.PasswordManager;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.validation.LoginValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +17,7 @@ import java.security.spec.InvalidKeySpecException;
 
 public class UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
+    private LoginValidator loginValidator = LoginValidator.getInstance();
     private MySqlUserDao userDao = MySqlUserDao.getInstance();
     private MySqlBlackListDao blackListDao = MySqlBlackListDao.getInstance();
 
@@ -97,5 +99,9 @@ public class UserService {
         user.setPassword("");
         session.setAttribute("isAuthorized", true);
         session.setAttribute("user", user);
+    }
+
+    public boolean validateLogin(String login) {
+        return loginValidator.validate(login);
     }
 }

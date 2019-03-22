@@ -4,6 +4,7 @@ import by.epam.javaweb.evgeniyyaskevich.finalproject.service.UserService;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.util.ResourceManager;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 public class LogInCommand implements ActionCommand {
     private static final String PARAM_NAME_LOGIN = "login";
@@ -16,8 +17,9 @@ public class LogInCommand implements ActionCommand {
         String login = request.getParameter(PARAM_NAME_LOGIN);
         char[] password = request.getParameter(PARAM_NAME_PASSWORD).toCharArray();
 
+        String language = (String) request.getSession().getAttribute("language");
         ResourceManager configManager = new ResourceManager("config");
-        ResourceManager messageManager = new ResourceManager("messages");
+        ResourceManager messageManager = new ResourceManager("messages", new Locale(language));
 
         if (userService.isUserExist(login)) {
             if (userService.checkPassword(login, password)) {

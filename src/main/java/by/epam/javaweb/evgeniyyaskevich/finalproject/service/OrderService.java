@@ -1,7 +1,10 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.service;
 
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.exception.PersistException;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation.MySqlApplicationDao;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.dao.implementation.MySqlDestinationDao;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Application;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.ApplicationState;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.CarType;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.entity.Destination;
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +19,7 @@ public class OrderService {
     private static final double ELITE_COEF = 2;
     private static final double STANDARD_TARIFF = 1;
     private MySqlDestinationDao destinationDao = MySqlDestinationDao.getInstance();
+    private MySqlApplicationDao applicationDao = MySqlApplicationDao.getInstance();
     //TODO: insert constants in database!
 
     private static final class SingletonHolder {
@@ -28,9 +32,19 @@ public class OrderService {
         return SingletonHolder.INSTANCE;
     }
 
+    public void cancelOrder(long id) {
+        try {
+            Application application = applicationDao.getById(id);
+            application.setState(ApplicationState.CANCELED);
+            applicationDao.update(application);
+        } catch(PersistException e) {
+            LOGGER.error("Application Dao problem: ", e);
+        }
+    }
+
     public int calculatePrice(String destination, CarType carType) {
         double coefficient = getCoefficient(carType);
-        return (int) (calculateDistance(destination) * STANDARD_TARIFF * coefficient);
+        return (int) (calculateDistance(destination) * STANDARD_TARIFF * coefficient) / 2;
     }
 
     private int calculateDistance(String destinationName) {

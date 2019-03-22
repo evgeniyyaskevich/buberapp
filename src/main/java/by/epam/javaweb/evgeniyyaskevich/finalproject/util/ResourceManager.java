@@ -12,6 +12,11 @@ public class ResourceManager {
         resourceBundle = ResourceBundle.getBundle(resourceFileName, Locale.ENGLISH);
     }
 
+    public ResourceManager(String resourceFileName, Locale locale) {
+        this.resourceFileName = resourceFileName;
+        resourceBundle = ResourceBundle.getBundle(resourceFileName, locale);
+    }
+
     public String getProperty(String key) {
         return resourceBundle.getString(key);
     }

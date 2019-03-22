@@ -1,6 +1,7 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.command;
 
 import by.epam.javaweb.evgeniyyaskevich.finalproject.command.admin.*;
+import by.epam.javaweb.evgeniyyaskevich.finalproject.command.client.CancelOrderCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.command.client.FormOrderCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.command.client.GetDestinationsCommand;
 import by.epam.javaweb.evgeniyyaskevich.finalproject.command.client.MakeOrderCommand;
@@ -37,6 +38,11 @@ public enum CommandEnum {
             this.command = new AddUserToBlackListCommand();
         }
     },
+    DELETE_USER_FROM_BLACK_LIST {
+        {
+            this.command = new DeleteUserFromBlackListCommand();
+        }
+    },
     ADD_CAR {
         {
             this.command = new AddCarCommand();
@@ -50,6 +56,21 @@ public enum CommandEnum {
     FORM_ORDER {
         {
             this.command = new FormOrderCommand();
+        }
+    },
+    UPDATE_DESTINATION {
+        {
+            this.command = new UpdateDestinationCommand();
+        }
+    },
+    DELETE_DESTINATION {
+        {
+            this.command = new DeleteDestinationCommand();
+        }
+    },
+    ADD_DESTINATION {
+        {
+            this.command = new AddDestinationCommand();
         }
     },
     GET_DESTINATIONS {
@@ -77,9 +98,19 @@ public enum CommandEnum {
             this.command = new AcceptOrderCommand();
         }
     },
+    CANCEL_ORDER {
+        {
+            this.command = new CancelOrderCommand();
+        }
+    },
     RETURN_MAIN {
         {
             this.command = new ReturnToMainCommand();
+        }
+    },
+    SET_LANGUAGE {
+        {
+            this.command = new SetLanguageCommand();
         }
     },
     EMPTY {

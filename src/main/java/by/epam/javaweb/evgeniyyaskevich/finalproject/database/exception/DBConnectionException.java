@@ -1,7 +1,7 @@
 package by.epam.javaweb.evgeniyyaskevich.finalproject.database.exception;
 
 public class DBConnectionException extends RuntimeException {
-    private static final long serialVersionUID = -2936043580201672121L;
+    private static final long serialVersionUID = -6898965331368095419L;
 
     public DBConnectionException() {
         super();

@@ -22,6 +22,7 @@ public class MakeOrderCommand implements ActionCommand {
             HttpSession session = request.getSession();
             Application application = (Application) session.getAttribute("application");
             applicationDao.insert(application);
+            session.removeAttribute("application");
             return configManager.getProperty("path.page.successOrder");
         } catch (PersistException e) {
             LOGGER.error("ApplicationDaoProblem: ", e);

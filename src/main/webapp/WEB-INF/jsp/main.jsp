@@ -1,106 +1,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ page isELIgnored="false" pageEncoding="UTF-8" %>
+<%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" %>
 <html>
 
 <head>
-    <title>Buber Main</title>
+    <jsp:include page="header/languageHeader.jsp"/>
+    <title><fmt:message key="title.buberMain" bundle="${content}"/></title>
     <link rel="stylesheet" href="<c:url value="/css/main.css" />">
 </head>
 
 <body>
-
-<jsp:include page="header.jsp"/>
-
-<%--<fmt:setLocale value="en"/>
-<fmt:bundle basename="mainPageContent">
-    <fmt:message key="welcomeMessage" var="welcomeMessage"/>
-    <fmt:message key="from" var="from"/>
-    <fmt:message key="to" var="to"/>
-    <fmt:message key="currentLocation" var="currentLocation"/>
-    <fmt:message key="destination" var="destination"/>
-    <fmt:message key="applicationTime" var="applicationTime"/>
-    <fmt:message key="childSeat" var="childSeat"/>
-    <fmt:message key="carType" var="carType"/>
-    <fmt:message key="price" var="price"/>
-    <fmt:message key="state" var="state"/>
-</fmt:bundle>--%>
-
+<jsp:include page="header/header.jsp"/>
 
 <div class="welcome">
-    Welcome to Buber, ${user.name}!
+    <fmt:message key="main.welcomeMessage" bundle="${content}"/>, ${user.name}!
 </div>
 <br> <br> <br>
 
 <c:if test="${user.level eq 'CLIENT'}">
-    <c:out value=""/>
     <div class="button-content">
-        <a href="#openModal">
-            <input type="button" class="orderButton" id="orderButton" value="Do you want to order?"/> </a>
+        <a href="#openOrderForm">
+            <input type="button" class="orderButton" id="orderButton"
+                   value="<fmt:message key="main.orderButton" bundle="${content}"/>"/>
+        </a>
     </div>
+    <br> <br>
 
-    <div id="openModal" class="modalDialog">
-        <div>
-            <form action="main" method="POST">
-                <input type="hidden" name="command" value="form_order">
-                <a href="" title="Close" class="close">X</a>
-                <div class="applicationContent">
-                    <h1 class="text-form-header">Order Form</h1>
-                    <div class="text-form">
-                        From:
-                    </div>
-                        Current Location <br>
-                    <div class="text-form">
-                        To:
-                    </div>
-                    <label>
-                        <select name="destination">
-                            <c:forEach items="${destinations}" var="destination">
-                                <option>${destination.name}</option>
-                            </c:forEach>
-                        </select>
-                    </label>
-                    <hr>
-                    <label> <input type="checkbox" name="child_seat" value="true"> Child Seat </label>
-                    <hr>
-                    <label>
-                        <input name="carType" type="radio" value="Universal" required> Universal
-                        <input name="carType" type="radio" value="Minivan"> Minivan
-                        <input name="carType" type="radio" value="Elite"> Elite <br>
-                    </label> <br> <br>
-                    <input class="orderButton" type="submit" value="next"/>
-                </div>
-            </form>
-        </div>
-    </div>
-</c:if>
-
-<c:if test="${user.level eq 'DRIVER'}">
     <div class="applicationContent">
-        <div>
-            <form action="main" method="POST">
-                <input type="hidden" name="command" value="accept_order"/>
-                <input type="number" name="orderNumber" value="" placeholder="application id" required/>
-                <input type="submit" value="Accept order"/>
-            </form>
-        </div>
-
-        <div class="error-message">
-            <c:out value="${errorMessage}"/>
-        </div>
-    </div>
-</c:if>
-
-<c:if test="${user.level eq 'ADMIN'}">
-    <jsp:include page="admin.jsp">
-        <jsp:param name="users" value="${users}"/>
-    </jsp:include>
-</c:if>
-
-<br> <br> <br>
-<div class="applicationContent">
-    <c:if test="${user.level ne 'ADMIN'}">
         <c:choose>
             <c:when test="${fn:length(applications) ne 0}">
                 <div class="text-form-header">
@@ -108,12 +35,13 @@
                         <thead align="center">
                         <tr>
                             <td>#</td>
-                            <td>destination</td>
-                            <td>applicationTime</td>
-                            <td>carType</td>
-                            <td>childSeat</td>
-                            <td>price</td>
-                            <td>state</td>
+                            <td><fmt:message key="destination" bundle="${content}"/></td>
+                            <td><fmt:message key="applicationTime" bundle="${content}"/></td>
+                            <td><fmt:message key="carType" bundle="${content}"/></td>
+                            <td><fmt:message key="childSeat" bundle="${content}"/></td>
+                            <td><fmt:message key="price" bundle="${content}"/></td>
+                            <td><fmt:message key="state" bundle="${content}"/></td>
+                            <td>|--|</td>
                         </tr>
                         </thead>
 
@@ -127,6 +55,16 @@
                                 <td><c:out value="${application.childSeat}"/></td>
                                 <td><c:out value="${application.price}"/></td>
                                 <td><c:out value="${application.state}"/></td>
+                                <td>
+                                    <c:if test="${application.state eq 'WAITING'}">
+                                        <form action="main" method="POST" style="display: inline; margin: 0;">
+                                            <input type="hidden" name="command" value="cancel_order">
+                                            <input type="hidden" name="application_id" value="${application.id}">
+                                            <input type="submit"
+                                                   value="<fmt:message key="main.cancel" bundle="${content}"/>">
+                                        </form>
+                                    </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -134,11 +72,66 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <c:out value="Your list of orders is empty."/>
+                <fmt:message key="main.emptyOrderList" bundle="${content}"/>
             </c:otherwise>
         </c:choose>
-    </c:if>
-</div>
-</body>
+    </div>
 
+    <div id="openOrderForm" class="modalDialog">
+        <div>
+            <form action="main" method="POST">
+                <input type="hidden" name="command" value="form_order">
+                <a href="" title="" class="close">X</a>
+                <div class="applicationContent">
+                    <h1 class="text-form-header">
+                        <fmt:message key="main.orderForm" bundle="${content}"/>
+                    </h1>
+                    <div class="text-form">
+                        <fmt:message key="main.orderForm.from" bundle="${content}"/>
+                    </div>
+                    <fmt:message key="main.orderForm.currentLocation" bundle="${content}"/> <br>
+                    <div class="text-form">
+                        <fmt:message key="main.orderForm.to" bundle="${content}"/>
+                    </div>
+                    <label>
+                        <select name="destination">
+                            <c:forEach items="${destinations}" var="destination">
+                                <option>${destination.name}</option>
+                            </c:forEach>
+                        </select>
+                    </label>
+                    <hr>
+                    <label> <input type="checkbox" name="child_seat" value="true">
+                        <fmt:message key="childSeat" bundle="${content}"/> </label>
+                    <hr>
+                    <label>
+                        <input name="carType" type="radio" value="Universal" required>
+                        <fmt:message key="carType.universal" bundle="${content}"/>
+                        <input name="carType" type="radio" value="Minivan">
+                        <fmt:message key="carType.universal" bundle="${content}"/>
+                        <input name="carType" type="radio" value="Elite">
+                        <fmt:message key="carType.elite" bundle="${content}"/> <br>
+                    </label> <br> <br>
+                    <input class="orderButton" type="submit"
+                           value="<fmt:message key="main.orderForm.next" bundle="${content}"/>"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</c:if>
+
+<c:if test="${user.level eq 'DRIVER'}">
+    <jsp:include page="role/driver.jsp">
+        <jsp:param name="applications" value="${applications}"/>
+        <jsp:param name="errorMessage" value="${errorMessage}"/>
+    </jsp:include>
+</c:if>
+
+<c:if test="${user.level eq 'ADMIN'}">
+    <jsp:include page="role/admin.jsp">
+        <jsp:param name="users" value="${users}"/>
+    </jsp:include>
+</c:if>
+
+</body>
 </html>

@@ -40,6 +40,7 @@ public class AuthorizationFilter implements Filter {
             }
         } else {
             session.setAttribute("isAuthorized", false);
+            session.setAttribute("language", "en");
             if (urlPattern.equals("login") || urlPattern.equals("register")) {
                 chain.doFilter(servletRequest, servletResponse);
             } else {

@@ -61,8 +61,6 @@ public class Controller extends HttpServlet {
                 new GetApplicationsCommand().execute(request);
                 new GetParametersForAdminPanelCommand().execute(request);
                 break;
-            case "order":
-                break;
         }
     }
 }

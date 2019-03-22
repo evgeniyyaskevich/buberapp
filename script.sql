@@ -30,7 +30,7 @@ CREATE TABLE Application (
     destination VARCHAR(20) NOT NULL,
     price INT NOT NULL,
     application_time DATETIME NOT NULL DEFAULT NOW(),
-    state ENUM ("WAITING", "ACCEPTED"),
+    state ENUM ("WAITING", "ACCEPTED", "CANCELED"),
     car_type VARCHAR(15) NOT NULL,
     child_seat BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (application_id),
