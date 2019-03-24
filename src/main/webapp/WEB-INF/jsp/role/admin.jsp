@@ -4,7 +4,6 @@
 <html>
 <head>
     <link rel="stylesheet" href="<c:url value="/css/admin.css" />">
-    <title><fmt:message key="title.adminPanel" bundle="${content}"/></title>
 </head>
 
 <body>

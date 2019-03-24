@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "authorizationFilter", urlPatterns = {"/main", "/login", "/register", "/successOrder"})
+@WebFilter(filterName = "authorizationFilter",
+        urlPatterns = {"/main", "/login", "/register", "/successOrder", "/order"})
 public class AuthorizationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)

@@ -16,9 +16,9 @@ public class DBManager {
     private String password;
     private String driver;
 
-    public DBManager() {}
+    DBManager() {}
 
-    public void openAccess(String DBPropertiesName) throws DBPropertiesFileError, DBDriverClassNotFoundException {
+    void openAccess(String DBPropertiesName) throws DBPropertiesFileError, DBDriverClassNotFoundException {
         InputStream is;
         Properties properties = new Properties();
         try {

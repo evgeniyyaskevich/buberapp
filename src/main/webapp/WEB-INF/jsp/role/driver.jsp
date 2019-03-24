@@ -7,7 +7,6 @@
 
 <head>
     <link rel="stylesheet" href="<c:url value="/css/main.css" />">
-    <title><fmt:message key="title.driverPanel" bundle="${content}"/></title>
 </head>
 
 <body>
