@@ -3,7 +3,7 @@ CREATE DATABASE buber;
 USE buber;
 
 CREATE TABLE User (
-	user_name VARCHAR(30) NOT NULL UNIQUE,
+    user_name VARCHAR(30) NOT NULL UNIQUE,
     password VARCHAR(200) NOT NULL, 
     user_id INT NOT NULL AUTO_INCREMENT,
     bonus INT DEFAULT 0,
@@ -13,19 +13,19 @@ CREATE TABLE User (
 
 
 CREATE TABLE Car (
-	car_id INT NOT NULL AUTO_INCREMENT,
+    car_id INT NOT NULL AUTO_INCREMENT,
     driver_id INT DEFAULT NULL,
-	car_brand VARCHAR(10) NOT NULL,
+    car_brand VARCHAR(10) NOT NULL,
     car_type ENUM ("UNIVERSAL", "MINIVAN", "ELITE") DEFAULT "UNIVERSAL",
     child_seat BOOLEAN DEFAULT false,
     PRIMARY KEY (car_id),
     FOREIGN KEY (driver_id) REFERENCES User (user_id)
 		ON UPDATE CASCADE
-        ON DELETE CASCADE
+                ON DELETE CASCADE
 );
 
 CREATE TABLE Application (
-	application_id INT NOT NULL AUTO_INCREMENT,
+    application_id INT NOT NULL AUTO_INCREMENT,
     client_id INT NOT NULL,
     destination VARCHAR(20) NOT NULL,
     price INT NOT NULL,
@@ -36,14 +36,14 @@ CREATE TABLE Application (
     PRIMARY KEY (application_id),
     FOREIGN KEY (client_id)  REFERENCES User (user_id)
 		ON UPDATE CASCADE
-        ON DELETE CASCADE
+                ON DELETE CASCADE
 );
 
 
 
 CREATE TABLE Destination (
-	destination_id INT NOT NULL AUTO_INCREMENT,
-	destination_name VARCHAR(20) NOT NULL,
+    destination_id INT NOT NULL AUTO_INCREMENT,
+    destination_name VARCHAR(20) NOT NULL,
     south_coord INT NOT NULL,
     north_coord INT NOT NULL,
     PRIMARY KEY (destination_id)
@@ -51,12 +51,12 @@ CREATE TABLE Destination (
 
 
 CREATE TABLE Black_list (
-	user_id INT NOT NULL UNIQUE,
+    user_id INT NOT NULL UNIQUE,
     reason VARCHAR(50),
     PRIMARY KEY (user_id),
     FOREIGN KEY (user_id) REFERENCES User (user_id)
 		ON UPDATE CASCADE
-        ON DELETE CASCADE
+                ON DELETE CASCADE
 );
 
 # Igor, Tatyan, Ekaterina, Elizaveta password = 123
